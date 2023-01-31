@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BoxBack.Domain\BoxBack.Domain.csproj" />
+    <ProjectReference Include="..\BoxBack.Infra.Data\BoxBack.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
