@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,7 +20,6 @@ namespace BoxBack.Domain.Models
 
         // Relationships
         [ForeignKey("TenantId")]
-        public Guid TenantId { get; set; }
         public Tenant Tenant { get; set; }
 
         public ICollection<ApplicationRoleGroup> ApplicationRoleGroups { get; set; }
