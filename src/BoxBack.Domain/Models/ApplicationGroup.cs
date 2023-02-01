@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BoxBack.Domain.Models
 {
-    public class ApplicationGroup : EntityAudit
+    public class ApplicationGroup : EntityAuditTenant
     {        
         public ApplicationGroup(string name,
                                 string uniqueKey)

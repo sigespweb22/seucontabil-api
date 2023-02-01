@@ -4,7 +4,7 @@ using BoxBack.Domain.Enums;
 
 namespace BoxBack.Domain.Models
 {
-    public class Cliente : EntityAudit
+    public class Cliente : EntityAuditTenant
     {        
         public Cliente(string nomeFantasia, string razaoSocial, string inscricaoEstadual,
                        string cnpj, string telefonePrincipal, string emailPrincipal, string observacao,
