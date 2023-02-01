@@ -18,27 +18,13 @@ namespace BoxBack.Application.AppServices
                 throw new ArgumentException("Id usuário requerido.");
             #endregion
 
-            #region Get and mapper object
-            var navigation = new List<VerticalNavItemViewModel>();
-            var navigationA = new VerticalNavItemViewModel();
-            var navigationSectionA = new VerticalNavItemViewModel();
-            var navigationSectionB = new VerticalNavItemViewModel();
-            var navigationB = new VerticalNavItemViewModel();
-            var navigationF = new VerticalNavItemViewModel();
-            var navigationG = new VerticalNavItemViewModel();
-            
-            navigationA.Children = new List<Son>();
-            navigationB.Children = new List<Son>();
-            navigationF.Children = new List<Son>();
-            navigationG.Children = new List<Son>();
+            #region MENU Principal
+            var menu = new List<VerticalNavItemViewModel>();
+            #endregion
 
-            var oldestDashboardSonA = new Son();
-            var oldestDashboardSonB = new Son();
-            var oldestSonB = new Son();
-            var oldestSonC = new Son();
-            var oldestSonD = new Son();
-
-            navigationA = new VerticalNavItemViewModel
+            #region MENU Dashboard
+            var menuPailDashboard = new VerticalNavItemViewModel();
+            menuPailDashboard = new VerticalNavItemViewModel
             {
                 Title = "Dashboards",
                 Icon = "HomeAnalytics",
@@ -46,44 +32,33 @@ namespace BoxBack.Application.AppServices
                 BadgeColor = "primary",
                 Children = new List<Son>()
             };
+            menuPailDashboard.Children = new List<Son>();
 
-            var comercial = new Son
-            {
-                Title = "Comercial",
-                Path = "/dashboards/comercial",
-                Action = "list",
-                Subject = "ac-dashboardComercial-page"
-            };
-            navigationA.Children.Add(comercial);
-
-            var publica = new Son
+            var menuFilhoDashboardPublica = new Son
             {
                 Title = "Pública",
                 Path = "/dashboards/publica",
                 Action = "list",
                 Subject = "ac-dashboard-publica-page"
             };
-            navigationA.Children.Add(publica);
+            menuPailDashboard.Children.Add(menuFilhoDashboardPublica);
 
-            navigationG = new VerticalNavItemViewModel
-            {
-                Title = "Relatórios",
-                Icon = "ChartBox",
-                BadgeContent = "",
-                BadgeColor = "primary",
-                Children = new List<Son>()
-            };
+            await Task.Run(() => menu.Add(menuPailDashboard));
+            #endregion
 
-            var comercialRelatorio = new Son
+            #region SESSÃO TÍTULO Sistema
+            var moduloSistema = new VerticalNavItemViewModel
             {
-                Title = "Comercial",
-                Path = "/relatorios/comercial",
+                SectionTitle = "SYSTEM",
                 Action = "list",
-                Subject = "ac-relatorioComercial-page"
+                Subject = "section-title-system"
             };
-            navigationG.Children.Add(comercialRelatorio);
 
-            navigationB = new VerticalNavItemViewModel
+            await Task.Run(() => menu.Add(moduloSistema));
+            #endregion
+
+            #region MENU Controle Acesso
+            var menuPaiControleAcesso = new VerticalNavItemViewModel
             {
                 Title = "Controle Acesso",
                 Icon = "TrackpadLock",
@@ -92,34 +67,49 @@ namespace BoxBack.Application.AppServices
                 Children = new List<Son>()
             };
 
-            oldestSonB = new Son
+            var menuFilhoUsuario = new Son
             {
                 Title = "Usuários",
                 Path = "/sistema/controle-acesso/usuario/list",
                 Action = "list",
                 Subject = "ac-user-page"
             };
-            navigationB.Children.Add(oldestSonB);
+            menuPaiControleAcesso.Children.Add(menuFilhoUsuario);
 
-            oldestSonC = new Son
+            var menuFilhoPermissao = new Son
             {
                 Title = "Permissões",
                 Path = "/sistema/controle-acesso/role/list",
                 Action = "list",
                 Subject = "ac-role-page"
             };
-            navigationB.Children.Add(oldestSonC);
+            menuPaiControleAcesso.Children.Add(menuFilhoPermissao);
 
-            oldestSonD = new Son
+            var menuFilhoGrupo = new Son
             {
                 Title = "Grupos",
                 Path = "/sistema/controle-acesso/grupo/list",
                 Action = "list",
                 Subject = "ac-group-page"
             };
-            navigationB.Children.Add(oldestSonD);
+            menuPaiControleAcesso.Children.Add(menuFilhoGrupo);
 
-            var navigationC = new VerticalNavItemViewModel
+            await Task.Run(() => menu.Add(menuPaiControleAcesso));
+            #endregion
+
+            #region SESSÃO TÍTULO Negócios
+            var moduloNegocios = new VerticalNavItemViewModel
+            {
+                SectionTitle = "BUSSINESS",
+                Action = "list",
+                Subject = "section-title-system"
+            };
+
+            await Task.Run(() => menu.Add(moduloNegocios));
+            #endregion
+
+            #region MENU Comercial
+            var menuPaiComercial = new VerticalNavItemViewModel
             {
                 BadgeContent = "",
                 Title = "Comercial",
@@ -128,144 +118,19 @@ namespace BoxBack.Application.AppServices
                 Children = new List<Son>()
             };
 
-            var oldestSonNB1 = new Son
+            var menuFilhoCliente = new Son
             {
                 Title = "Clientes",
                 Path = "/negocios/comercial/cliente/list",
                 Action = "list",
                 Subject = "ac-cliente-page"
             };
-            navigationC.Children.Add(oldestSonNB1);
+            menuPaiComercial.Children.Add(menuFilhoCliente);
 
-            var oldestSonNB2 = new Son
-            {
-                Title = "Vendedores",
-                Path = "/negocios/comercial/vendedor/list",
-                Action = "list",
-                Subject = "ac-vendedor-page"
-            };
-            navigationC.Children.Add(oldestSonNB2);
-
-            // var oldestSonNB2 = new Son
-            // {
-            //     Title = "Serviços",
-            //     Path = "/negocios/comercial/servico/list",
-            //     Action = "list",
-            //     Subject = "ac-servico-page"
-            // };
-            // navigationC.Children.Add(oldestSonNB2);
-
-            // var oldestSonNB5 = new Son
-            // {
-            //     Title = "Produtos",
-            //     Path = "/negocios/comercial/produto/list",
-            //     Action = "list",
-            //     Subject = "ac-produto-page"
-            // };
-            // navigationC.Children.Add(oldestSonNB5);
-
-            // var navigationD = new VerticalNavItemViewModel
-            // {
-            //     Title = "Processos",
-            //     Icon = "LanguageRubyOnRails",
-            //     BadgeContent = "",
-            //     BadgeColor = "primary",
-            //     Children = new List<Son>()
-            // };
-
-            // var oldestSonNB3 = new Son
-            // {
-            //     Title = "Pipelines",
-            //     Path = "/negocios/processos/pipeline/list",
-            //     Action = "list",
-            //     Subject = "ac-pipeline-page"
-            // };
-            
-            // navigationD.Children.Add(oldestSonNB3);
-
-            // var navigationE = new VerticalNavItemViewModel
-            // {
-            //     Title = "Parceiros",
-            //     Icon = "HandshakeOutline",
-            //     BadgeContent = "",
-            //     BadgeColor = "primary",
-            //     Children = new List<Son>()
-            // };
-            // var oldestSonNB4 = new Son
-            // {
-            //     Title = "Fornecedores",
-            //     Path = "/negocios/parceiros/fornecedor/list",
-            //     Action = "list",
-            //     Subject = "ac-fornecedor-page"
-            // };
-            // navigationE.Children.Add(oldestSonNB4);
-
-            navigationF = new VerticalNavItemViewModel
-            {
-                Title = "Configurações",
-                Icon = "CogOutline",
-                BadgeContent = "",
-                BadgeColor = "primary",
-                Children = new List<Son>()
-            };
-
-            var token = new Son
-            {
-                Title = "Chaves Apis",
-                Path = "/sistema/configuracoes/chave-api/list",
-                Action = "list",
-                Subject = "ac-chaveApiTerceiro-page"
-            };
-            navigationF.Children.Add(token);
-
-            var rotinas = new VerticalNavItemViewModel
-            {
-                Title = "Rotinas",
-                Icon = "TimerCogOutline",
-                BadgeContent = "",
-                BadgeColor = "primary",
-                Children = new List<Son>()
-            };
-
-            var rotinasTodas = new Son
-            {
-                Title = "Todas",
-                Path = "/sistema/rotinas/list",
-                Action = "list",
-                Subject = "ac-rotina-page"
-            };
-            rotinas.Children.Add(rotinasTodas);
-
-            await Task.Run(() => navigation.Add(navigationA));
-            await Task.Run(() => navigation.Add(navigationG));
-            
-            navigationSectionA = new VerticalNavItemViewModel
-            {
-                SectionTitle = "SYSTEM",
-                Action = "list",
-                Subject = "section-title-system"
-            };
-
-            navigationSectionB = new VerticalNavItemViewModel
-            {
-                SectionTitle = "BUSSINESS",
-                Action = "list",
-                Subject = "section-title-bussiness"
-            };
-
-            await Task.Run(() => navigation.Add(navigationSectionA));
-            await Task.Run(() => navigation.Add(navigationB));
-            await Task.Run(() => navigation.Add(navigationF));
-            await Task.Run(() => navigation.Add(rotinas));
-            
-            await Task.Run(() => navigation.Add(navigationSectionB));
-            await Task.Run(() => navigation.Add(navigationC));
-
-            // await Task.Run(() => navigation.Add(navigationD));
-            // await Task.Run(() => navigation.Add(navigationE));
+            await Task.Run(() => menu.Add(menuPaiComercial));
             #endregion
             
-            return navigation.ToList();
+            return menu.ToList();
         }
     }
 }

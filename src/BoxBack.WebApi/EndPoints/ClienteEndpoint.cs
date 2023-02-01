@@ -18,6 +18,7 @@ using BoxBack.Application.ViewModels.Selects;
 using BoxBack.Domain.Enums;
 using BoxBack.WebApi.Helpers;
 using BoxBack.Application.Interfaces;
+using BoxBack.Domain.ModelsServices;
 
 namespace BoxBack.WebApi.EndPoints
 {
@@ -618,5 +619,58 @@ namespace BoxBack.WebApi.EndPoints
                 Params = id
             });
         }
+
+        #region Third Party
+        /// <summary>
+        /// Lista os dados do CNPJ de uma empresa a partir de uma api de terceiro
+        /// </summary>
+        /// <param name="cnpj"></param>
+        /// <returns>Um json com os dados da empresa</returns>
+        /// <response code="200">Dados da empresa</response>
+        /// <response code="400">Problemas de validação ou dados nulos</response>
+        /// <response code="404">CNPJ não encontrado</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /tp
+        ///     {
+        ///        "cnpj": "23831562000182"
+        ///     }
+        ///
+        /// </remarks>
+        [Authorize(Roles = "Master, CanClienteCreate, CanClienteAll")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Produces("application/json")]
+        [Route("tp/{cnpj}")]
+        [HttpGet]
+        public async Task<IActionResult> GetByApiThirdPartyByCnpj(string cnpj)
+        {
+            #region Required validations
+            if (string.IsNullOrEmpty(cnpj))
+            {
+                AddError("CNPJ requerido.");
+                return CustomResponse(400);
+            }
+            #endregion
+
+            #region Get data
+            var empresa = new CNPJaEmpresaModelService();
+            try
+            {
+                empresa = await _cnpjaServices.ConsultaEstabelecimento(cnpj);
+                if (empresa == null)
+                {
+                    AddError("Empresa não encontrada com o CNPJ informado.");
+                    return CustomResponse(404, empresa);
+                }
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(400); }
+            #endregion
+            
+            return CustomResponse(200, empresa);
+        }
+        #endregion
     }
 }
