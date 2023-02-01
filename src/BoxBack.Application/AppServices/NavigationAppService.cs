@@ -130,6 +130,61 @@ namespace BoxBack.Application.AppServices
             await Task.Run(() => menu.Add(menuPaiComercial));
             #endregion
             
+            #region SESSÃO TÍTULO Financeiro
+            var moduloFinanceiro = new VerticalNavItemViewModel
+            {
+                SectionTitle = "FINANCEIRO",
+                Action = "list",
+                Subject = "section-title-financeiro"
+            };
+
+            await Task.Run(() => menu.Add(moduloFinanceiro));
+            #endregion
+
+            #region MENU Eventos
+            var menuPaiEventos = new VerticalNavItemViewModel
+            {
+                BadgeContent = "",
+                Title = "Eventos",
+                Icon = "ClipboardListOutline",
+                BadgeColor = "primary",
+                Children = new List<Son>()
+            };
+
+            var menuFilhoEventosTodos = new Son
+            {
+                Title = "Todos",
+                Path = "/financeiro/evento/list",
+                Action = "list",
+                Subject = "ac-evento-page"
+            };
+            menuPaiEventos.Children.Add(menuFilhoEventosTodos);
+
+            await Task.Run(() => menu.Add(menuPaiEventos));
+            #endregion
+
+            #region MENU Despesas
+            var menuPaiDespesas = new VerticalNavItemViewModel
+            {
+                BadgeContent = "",
+                Title = "Despesas",
+                Icon = "Cash",
+                BadgeColor = "primary",
+                Children = new List<Son>()
+            };
+
+            var menuFilhoTodas = new Son
+            {
+                Title = "Todas",
+                Path = "/financeiro/despesa/list",
+                Action = "list",
+                Subject = "ac-despesa-page"
+            };
+            menuPaiDespesas.Children.Add(menuFilhoTodas);
+
+            await Task.Run(() => menu.Add(menuPaiDespesas));
+            #endregion
+
             return menu.ToList();
         }
     }

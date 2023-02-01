@@ -67,26 +67,22 @@
                 <mxCell id="42" style="edgeStyle=none;html=1;" parent="1" source="39" target="20" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="43" style="edgeStyle=none;html=1;" parent="1" source="39" target="40" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
                 <mxCell id="46" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="39" target="44" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="39" value="TABELA EVENTOS FINANCEIROS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" parent="1" vertex="1">
-                    <mxGeometry x="-600" y="474" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="-600" y="520" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="47" style="edgeStyle=none;html=1;" parent="1" source="40" target="45" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="40" value="TABELA EVENTOS CONTÁBEIS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" parent="1" vertex="1">
-                    <mxGeometry x="-600" y="574" width="120" height="60" as="geometry"/>
+                <mxCell id="47" style="edgeStyle=none;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="39" target="45" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-480" y="604" as="sourcePoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="44" value="RELATÓRIOS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" parent="1" vertex="1">
                     <mxGeometry x="-420" y="474" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="45" value="EXPORTAÇÃO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" parent="1" vertex="1">
-                    <mxGeometry x="-420" y="574" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="-420" y="604" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="48" value="Estas modalidades de parcelamento surgem uma nova de tempos em tempos, são os famosos planos refis" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="-420" y="273" width="210" height="55" as="geometry"/>
