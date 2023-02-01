@@ -8,8 +8,6 @@ namespace BoxBack.Domain.Interfaces
 {
     public interface IClienteService
     {
-        Task SincronizarFromTPAsync(string token, Guid rotinaEventHistoryId);
-        Task SyncAsync(string token, Guid rotinaEventHistoryId, IServiceScope scope);
         Task<IEnumerable<Cliente>> GetAll();
     }
 }

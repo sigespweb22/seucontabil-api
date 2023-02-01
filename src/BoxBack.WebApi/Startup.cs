@@ -23,7 +23,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using BoxBack.Domain.Hubs;
-using BoxBack.WebApi.ScheduleServices;
 
 namespace BoxBack.WebApi
 {
