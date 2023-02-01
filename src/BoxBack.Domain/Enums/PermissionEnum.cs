@@ -26,19 +26,14 @@ namespace BoxBack.Domain.Enums
         Master = 0,
         #endregion
 
-        #region Dashboard
+        #region Dashboard All
         [Description("Pode realizar todas as ações/operações em todas as dashboards")]
         CanDashboardAll = 1,
-        [Description("Pode visualizar todas as dashboards do cliente")]
-        CanDashboardClienteAll = 2,
-        [Description("Pode visualizar todas as dashboards de controle de acesso")]
-        CanDashboardControleAcessoAll = 3,
         #endregion
 
         #region Dashboard Publica
         [Description("Pode realizar todas as ações/operações em dashboard publica")]
-        CanDashboardPublicaAll = 4,
-        CanDashboardPublicaClienteContratoList = 5,
+        CanDashboardPublicaAll = 2,
         #endregion
 
         #region Usuário
