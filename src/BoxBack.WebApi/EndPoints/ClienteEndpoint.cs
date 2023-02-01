@@ -14,7 +14,6 @@ using AutoMapper;
 using BoxBack.Domain.InterfacesRepositories;
 using BoxBack.WebApi.Controllers;
 using BoxBack.Domain.ServicesThirdParty;
-using BoxBack.Domain.ModelsServices;
 using BoxBack.Application.ViewModels.Selects;
 using BoxBack.Domain.Enums;
 using BoxBack.WebApi.Helpers;
@@ -89,7 +88,6 @@ namespace BoxBack.WebApi.EndPoints
                 {
                     clientes = await _context.Clientes
                                             .AsNoTracking()
-                                            .Include(x => x.ClienteContratos)
                                             .OrderByDescending(x => x.UpdatedAt)
                                             .ToListAsync();
                 }
@@ -620,115 +618,5 @@ namespace BoxBack.WebApi.EndPoints
                 Params = id
             });
         }
-
-        #region Third Party
-        /// <summary>
-        /// Lista os dados do CNPJ de uma empresa a partir de uma api de terceiro
-        /// </summary>
-        /// <param name="cnpj"></param>
-        /// <returns>Um json com os dados da empresa</returns>
-        /// <response code="200">Dados da empresa</response>
-        /// <response code="400">Problemas de validação ou dados nulos</response>
-        /// <response code="404">CNPJ não encontrado</response>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     PUT /tp
-        ///     {
-        ///        "cnpj": "23831562000182"
-        ///     }
-        ///
-        /// </remarks>
-        [Authorize(Roles = "Master, CanClienteCreate, CanClienteAll")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json")]
-        [Route("tp/{cnpj}")]
-        [HttpGet]
-        public async Task<IActionResult> GetByApiThirdPartyByCnpj(string cnpj)
-        {
-            #region Required validations
-            if (string.IsNullOrEmpty(cnpj))
-            {
-                AddError("CNPJ requerido.");
-                return CustomResponse(400);
-            }
-            #endregion
-
-            #region Get data
-            var empresa = new CNPJaEmpresaModelService();
-            try
-            {
-                empresa = await _cnpjaServices.ConsultaEstabelecimento(cnpj);
-                if (empresa == null)
-                {
-                    AddError("Empresa não encontrada com o CNPJ informado.");
-                    return CustomResponse(404, empresa);
-                }
-            }
-            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(400); }
-            #endregion
-            
-            return CustomResponse(200, empresa);
-        }
-
-        [Route("tp/bc/alter/{id}")]
-        [HttpGet]
-        public async Task<IActionResult> TPBCAlterAsync(string id)
-        {
-            #region Required validations
-            if (string.IsNullOrEmpty(id))
-            {
-                AddError("Id requerido.");
-                return CustomResponse(400);
-            }
-            #endregion
-
-            #region Chave api resolve
-            var chaveApiTerceiro = new ChaveApiTerceiro();
-            try
-            {
-                chaveApiTerceiro = await _context
-                                                .ChavesApiTerceiro
-                                                .Where(x => x.DataValidade >= DateTimeOffset.Now &&
-                                                       x.IsDeleted == false && !string.IsNullOrEmpty(x.Key))
-                                                .FirstOrDefaultAsync(x => x.ApiTerceiro.Equals(ApiTerceiroEnum.BOM_CONTROLE));
-            }
-            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
-
-            if (chaveApiTerceiro == null)
-            { 
-                AddError("Nenhuma chave de api de terceiro encontrada, verifique os possíveis erros: \n\nNenhuma chave de api cadastrada para esta integração. \n\nA chave de api cadastrada não possui uma Key. \n\nA chave de api cadastrada não está ativa. \n\nA chave de api cadastrada está com Data de Validade vencida.");
-                return CustomResponse(404);
-            }
-            #endregion
-
-            #region Token resolve
-            String token = string.Empty;
-            try
-            {
-                token = $"ApiKey {chaveApiTerceiro.Key}";
-            }
-            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
-            #endregion
-
-            #region Get data
-            var cliente = new BCClienteModelService();
-            try
-            {
-                cliente = await _bcServices.ClienteObter(id, token);
-                if (cliente == null)
-                {
-                    AddError("Cliente não encontrado com o Id informado.");
-                    return CustomResponse(404, cliente);
-                }
-            }
-            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(400); }
-            #endregion
-            
-            return CustomResponse(200, cliente);
-        }
-        #endregion
     }
 }

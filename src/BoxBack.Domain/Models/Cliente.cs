@@ -56,9 +56,5 @@ namespace BoxBack.Domain.Models
         // Relationships
         [ForeignKey("TenantId")]
         public Tenant Tenant { get; set; }
-
-        public ICollection<ClienteServico> ClienteServicos { get; set; }
-        public ICollection<ClienteProduto> ClienteProdutos { get; set; }
-        public ICollection<ClienteContrato> ClienteContratos { get; set; }
     }
 }

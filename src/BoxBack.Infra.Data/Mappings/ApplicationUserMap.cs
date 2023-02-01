@@ -34,18 +34,6 @@ namespace BoxBack.Infra.Data.Mappings
                 .OnDelete(DeleteBehavior.NoAction);
             
             builder
-                .HasMany(c => c.PipelineAssinantes)
-                .WithOne(c => c.ApplicationUser)
-                .HasForeignKey(c => c.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
-            
-            builder
-                .HasMany(c => c.PipelineTarefaAssinantes)
-                .WithOne(c => c.ApplicationUser)
-                .HasForeignKey(c => c.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder
                 .Property(c => c.TelefoneCelular)
                 .HasDefaultValue(99999999999)
                 .HasMaxLength(20);

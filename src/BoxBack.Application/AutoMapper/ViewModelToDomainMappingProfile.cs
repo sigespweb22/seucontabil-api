@@ -1,5 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using System;
+﻿using System;
 using System.Linq;
 using AutoMapper;
 using BoxBack.Application.ViewModels;
@@ -42,28 +41,9 @@ namespace BoxBack.Application.AutoMapper
             CreateMap<ApplicationRoleGroupUpdateViewModel, ApplicationRoleGroup>();
             CreateMap<ApplicationRoleGroupViewModel, ApplicationRoleGroup>();
             CreateMap<ApplicationRoleViewModel, ApplicationRole>();
-            CreateMap<ClienteViewModel, Cliente>()
-                .ForMember(dst => dst.ClienteContratos, src => src.MapFrom(x => x.Contratos));
-            CreateMap<ClienteServicoViewModel, ClienteServico>()
-                .ForMember(dst => dst.ServicoId, src => src.MapFrom(x => x.Servico.Id))
-                .ForMember(dst => dst.Nome, src => src.MapFrom(x => x.Servico.Nome));
-            CreateMap<ClienteProdutoViewModel, ClienteProduto>()
-                .ForMember(dst => dst.ProdutoId, src => src.MapFrom(x => x.Produto.Id))
-                .ForMember(dst => dst.Nome, src => src.MapFrom(x => x.Produto.Nome));
-            CreateMap<ServicoViewModel, Servico>()
-                .ForMember(dst => dst.FornecedorServicoId, src => src.MapFrom(x => x.FornecedorServico.Id));
-            CreateMap<PipelineAssinanteViewModel, PipelineAssinante>()
-                .ForMember(dst => dst.FullName, src => src.MapFrom(x => x.Name))
-                .ForMember(dst => dst.UserId, src => src.MapFrom(x => x.UserId));
-            CreateMap<PipelineViewModel, Pipeline>();
-            CreateMap<FornecedorViewModel, Fornecedor>();
-            CreateMap<FornecedorServicoViewModel, FornecedorServico>();
+            CreateMap<ClienteViewModel, Cliente>();
             CreateMap<UsuarioContaViewModel, ApplicationUser>();
             CreateMap<UsuarioInfoViewModel, ApplicationUser>();
-            CreateMap<ChaveApiTerceiroViewModel, ChaveApiTerceiro>();
-            CreateMap<ClienteContratoViewModel, ClienteContrato>();
-            CreateMap<ClientePadraoIntegracaoViewModel, Cliente>();
-            CreateMap<ClienteContratoPadraoIntegracaoViewModel, ClienteContrato>();
             CreateMap<BCClienteModelService, Cliente>()
                .ForMember(dst => dst.Id,  src => src.MapFrom(x => Guid.NewGuid()))
                .ForMember(dst => dst.TipoPessoa,  src => src.MapFrom(x => x.TipoPessoa == null ? null : x.TipoPessoa))
@@ -83,27 +63,6 @@ namespace BoxBack.Application.AutoMapper
                .ForMember(dst => dst.Estado, src => src.MapFrom(x => x.Endereco == null ? null : x.Endereco.Uf == null ? null : x.Endereco.Uf))
                .ForMember(dst => dst.Cep, src => src.MapFrom(x => x.Endereco == null ? null : x.Endereco.Cep == null ? null : x.Endereco.Cep))
                .ForMember(dst => dst.Cpf, src => src.MapFrom(x => x.PessoaJuridica == null ? x.PessoaFisica.Documento == null ? null : x.PessoaFisica.Documento : null));
-            CreateMap<BCContratoModelService, ClienteContrato>()
-                .ForMember(dst => dst.Id, src => src.MapFrom(x => Guid.NewGuid()))
-                .ForMember(dst => dst.BomControleContratoId, src => src.MapFrom(x => x.Id))
-                .ForMember(dst => dst.ClienteId, src => src.MapFrom(x => Guid.Empty))
-                .ForMember(dst => dst.ValorContrato, src => src.MapFrom(x => x.Valor))
-                .ForMember(dst => dst.ValorContrato, src => src.MapFrom(x => x.Valor))
-                .ForMember(dst => dst.Periodicidade, src => src.MapFrom(x => x.Periodicidade));
-            CreateMap<BCFaturaModelService, ClienteContratoFatura>()
-                .ForMember(dst => dst.Id, src => src.Ignore())
-                .ForMember(dst => dst.BomControleFaturaId, src => src.MapFrom(x => x.Id));
-            CreateMap<ProdutoViewModel, Produto>();
-            CreateMap<FornecedorProdutoViewModel, FornecedorProduto>();
-            CreateMap<VendedorViewModel, Vendedor>();
-            CreateMap<VendedorContratoViewModel, VendedorContrato>()
-                .ForMember(dst => dst.ComissaoPercentual, src => src.MapFrom(x => x.ComissaoPercentual))
-                .ForMember(dst => dst.ComissaoReais, src => src.MapFrom(x => x.ComissaoReais));
-            CreateMap<VendedorComissaoViewModel, VendedorComissao>();
-            CreateMap<RotinaViewModel, Rotina>()
-                .ForMember(dst => dst.DispatcherRoute, src => src.Ignore())
-                .ForMember(dst => dst.PropertyId, src => src.Ignore());
-            CreateMap<RotinaEventHistoryViewModel, RotinaEventHistory>();
         }
     }
 }

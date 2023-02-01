@@ -34,31 +34,6 @@ namespace BoxBack.Infra.Data.Context
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { get; set; }
         public DbSet<ApplicationUserGroup> ApplicationUserGroups { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<ClienteServico> ClientesServicos { get; set; }
-        public DbSet<ClienteProduto> ClientesProdutos { get; set; }
-        public DbSet<Servico> Servicos { get; set; }
-        public DbSet<Fornecedor> Fornecedores { get; set; }
-        public DbSet<FornecedorServico> FornecedorServicos { get; set; }
-        public DbSet<FornecedorProduto> FornecedorProdutos { get; set; }
-        public DbSet<Pipeline> Pipelines { get; set; }
-        public DbSet<PipelineEtapa> PipelineEtapas { get; set; }
-        public DbSet<PipelineAssinante> PipelineAssinantes { get; set; }
-        public DbSet<PipelineTarefa> PipelineTarefas { get; set; }
-        public DbSet<PipelineTarefaApontamento> PipelineTarefaApontamentos { get; set; }
-        public DbSet<PipelineTarefaAssinante> PipelineTarefaAssinantes { get; set; }
-        public DbSet<PipelineTarefaTag> PipelineTarefaTags { get; set; }
-        public DbSet<PipelineTarefaAnexo> PipelineTarefaAnexos { get; set; }
-        public DbSet<PipelineTarefaApontamentoAnexo> PipelineTarefaApontamentoAnexos { get; set; }
-        public DbSet<TarefaTag> TarefaTags { get; set; }
-        public DbSet<ChaveApiTerceiro> ChavesApiTerceiro { get; set; }
-        public DbSet<ClienteContrato> ClientesContratos { get; set; }
-        public DbSet<Produto> Produtos { get; set; }
-        public DbSet<Vendedor> Vendedores { get; set; }
-        public DbSet<VendedorComissao> VendedoresComissoes { get; set; }
-        public DbSet<VendedorContrato> VendedoresContratos { get; set; }
-        public DbSet<ClienteContratoFatura> ClientesContratosFaturas { get; set; }
-        public DbSet<Rotina> Rotinas { get; set; }
-        public DbSet<RotinaEventHistory> RotinasEventsHistories { get; set; }
         public DbSet<VerticalNavItem> VerticalNavItems { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
@@ -80,40 +55,11 @@ namespace BoxBack.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ApplicationRoleGroupMap());
             modelBuilder.ApplyConfiguration(new ApplicationUserGroupMap());
             modelBuilder.ApplyConfiguration(new ClienteMap());
-            modelBuilder.ApplyConfiguration(new ClienteServicoMap());
-            modelBuilder.ApplyConfiguration(new ServicoMap());
-            modelBuilder.ApplyConfiguration(new FornecedorMap());
-            modelBuilder.ApplyConfiguration(new FornecedorServicoMap());
-            modelBuilder.ApplyConfiguration(new PipelineMap());
-            modelBuilder.ApplyConfiguration(new PipelineEtapaMap());
-            modelBuilder.ApplyConfiguration(new PipelineAssinanteMap());
-            modelBuilder.ApplyConfiguration(new PipelineTarefaMap());
-            modelBuilder.ApplyConfiguration(new PipelineTarefaApontamentoMap());
-            modelBuilder.ApplyConfiguration(new PipelineTarefaAssinanteMap());
-            modelBuilder.ApplyConfiguration(new PipelineTarefaTagMap());
-            modelBuilder.ApplyConfiguration(new PipelineTarefaAnexoMap());
-            modelBuilder.ApplyConfiguration(new PipelineTarefaApontamentoAnexoMap());
-            modelBuilder.ApplyConfiguration(new TarefaTagMap());
-            modelBuilder.ApplyConfiguration(new ChaveApiTerceiroMap());
-            modelBuilder.ApplyConfiguration(new ClienteContratoMap());
-            modelBuilder.ApplyConfiguration(new ProdutoMap());
-            modelBuilder.ApplyConfiguration(new FornecedorProdutoMap());
-            modelBuilder.ApplyConfiguration(new ClienteProdutoMap());
-            modelBuilder.ApplyConfiguration(new VendedorMap());
-            modelBuilder.ApplyConfiguration(new VendedorComissaoMap());
-            modelBuilder.ApplyConfiguration(new VendedorContratoMap());
-            modelBuilder.ApplyConfiguration(new ClienteContratoFaturaMap());
-            modelBuilder.ApplyConfiguration(new RotinaMap());
-            modelBuilder.ApplyConfiguration(new RotinaEventHistoryMap());
             modelBuilder.ApplyConfiguration(new VerticalNavItemMap());
 
             modelBuilder.HasSequence<Int32>("OrderNumbers")
                         .StartsAt(1)
                         .IncrementsBy(1);
-                        
-            modelBuilder.Entity<Rotina>()
-                        .Property(c => c.ChaveSequencial)
-                        .HasDefaultValueSql("nextval('\"OrderNumbers\"')");
         }
 
         public override int SaveChanges()
