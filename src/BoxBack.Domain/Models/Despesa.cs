@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using BoxBack.Domain.Enums;
 
 namespace BoxBack.Domain.Models
