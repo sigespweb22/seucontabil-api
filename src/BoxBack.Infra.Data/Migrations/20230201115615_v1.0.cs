@@ -347,60 +347,51 @@ namespace BoxBack.Infra.Data.Migrations
                 columns: new[] { "Id", "Actions", "ConcurrencyStamp", "Description", "Name", "NormalizedName", "Subject" },
                 values: new object[,]
                 {
-                    { "01b8e3d0-abfb-436f-abdd-43028caf5e3c", new[] { 1, 2, 3, 4, 5 }, "fa6fa449-decc-490a-ac2e-95ab9a6d2023", "Pode realizar todas as ações/operações em todos os grupos", "CanGroupAll", "CANGROUPALL", "ac-group-page" },
-                    { "0ebcb26e-978a-4871-a8a0-2c344a1e8450", new[] { 5 }, "4af7e282-ef37-4856-af0c-d7c268bf76cd", "Pode deletar um grupo", "CanGroupDelete", "CANGROUPDELETE", "ac-group-page" },
-                    { "1494bf4f-fb40-4a69-9e83-c1cda1911598", new[] { 1 }, "46163539-6286-4ffa-a63d-e325c7a74108", "Pode listar os dados de todos os clientes", "CanClienteList", "CANCLIENTELIST", "ac-cliente-page" },
-                    { "16ff5dd9-06d0-483b-8a69-126a3f91b8f2", new[] { 1, 2, 3, 4, 5 }, "62637350-2c77-418e-8e94-10c8b332f854", "Pode visualizar todos os indicadores da dashboard comercial", "CanClienteAll", "CANCLIENTEALL", "ac-cliente-page" },
-                    { "182fdb11-cd82-4b79-a976-87dbfc9c6975", new[] { 1 }, "7ed057b4-3a2a-44d5-bc9c-ccdf4a54be62", "Pode listar os dados de todos os grupos", "CanGroupList", "CANGROUPLIST", "ac-group-page" },
-                    { "191b5a76-c90d-42c8-963e-c58da20cc4ab", new[] { 1, 2, 3, 4, 5 }, "15408c0f-6613-43a0-a31a-f9181411aaa4", "Pode realizar todas as ações/operações em dashboard publica", "CanDashboardPublicaAll", "CANDASHBOARDPUBLICAALL", "ac-dashboardPublica-page" },
-                    { "24ad1afd-f54f-49c5-b0db-32b0553a1b70", new[] { 4 }, "033468dc-6116-46b3-a683-14d801a0876b", "Pode atualizar os dados de um grupo", "CanGroupUpdate", "CANGROUPUPDATE", "ac-group-page" },
-                    { "30d2dc11-60ae-4316-a3df-fee08e1be225", new[] { 1, 2, 3, 4, 5 }, "9bf277cb-38d1-4c87-9eff-b2dc222057dd", "Pode realizar todas as ações/operações em todos as roles/permissões", "CanRoleAll", "CANROLEALL", "ac-role-page" },
-                    { "3a0de3b8-3d69-4a48-991f-20ded951df60", new[] { 1 }, "6af82471-1e1e-499a-86d8-b6cc63b39a3c", "Pode listar os dados de todos os usuários", "CanUserList", "CANUSERLIST", "ac-user-page" },
-                    { "3dc6ec2b-5f14-40cf-a633-63a9bbb6f4db", new[] { 4 }, "400a636a-3017-4b41-a4b6-49baef0f0555", "Pode atualizar os dados de uma roles/permissão", "CanRoleUpdate", "CANROLEUPDATE", "ac-role-page" },
-                    { "4952a4db-f856-443d-b8f3-68525177515b", new[] { 5 }, "786e12fb-1721-4679-b15b-f3221be4bead", "Pode deletar um cliente", "CanClienteDelete", "CANCLIENTEDELETE", "ac-cliente-page" },
-                    { "4f51b03a-0f44-49d4-a5f3-cb11075fc83e", new[] { 1 }, "de899eb4-50ce-4008-8f21-9383ef52e0fc", "Pode listar os dados de todas as roles/permissões", "CanRoleList", "CANROLELIST", "ac-role-page" },
-                    { "52ee3a20-6119-418b-a668-af50cb60dfa1", new[] { 3 }, "e4604f9f-e510-4544-924e-7a3e013f7523", "Pode criar um usuário", "CanUserCreate", "CANUSERCREATE", "ac-user-page" },
-                    { "61b2d3cf-ff1b-4659-b88b-c2776b109818", new[] { 1 }, "c45e2210-7a2b-416c-8114-c3ff351c8e53", "Pode listar o título do sistema", "CanTitleSystemList", "CANTITLESYSTEMLIST", "ac-titleSystem-page" },
-                    { "64a5687b-9d19-47f6-b9d2-ae9faf8cc7e1", new[] { 5 }, "870e8bf7-9819-4b85-a12b-acd6d074324e", "Pode deletar um usuário", "CanUserDelete", "CANUSERDELETE", "ac-user-page" },
-                    { "6d14bce0-73ba-43c7-a8f3-504afdeb150f", new[] { 2 }, "70badadc-8ffb-4aeb-8eef-887b6b7222cd", "Pode listar os dados de um usuários", "CanUserRead", "CANUSERREAD", "ac-user-page" },
-                    { "7f6bf538-6614-4543-9159-76c7b6bf57f8", new[] { 2 }, "b59e385b-5650-4b8b-8178-800ffcbb5a2f", "Pode listar os dados de uma roles/permissão", "CanRoleRead", "CANROLEREAD", "ac-role-page" },
-                    { "80f14930-ca06-4fd0-8328-50adb29d3b14", new[] { 4 }, "4ed2a396-5b44-4924-8a4b-022e3c35f84c", "Pode atualizar os dados de um cliente", "CanClienteUpdate", "CANCLIENTEUPDATE", "ac-cliente-page" },
-                    { "8c24089f-a619-4308-b518-d54b7cd39b39", new[] { 2 }, "89b9845e-863f-4c9c-b70f-ebe87495ee04", "Pode listar os dado de um grupo", "CanGroupRead", "CANGROUPREAD", "ac-group-page" },
-                    { "8d864376-4494-4dd0-aff2-0e04934d1361", new[] { 3 }, "b804a0f6-ba3f-4727-aa80-1131927cbbda", "Pode criar um grupo", "CanGroupCreate", "CANGROUPCREATE", "ac-group-page" },
-                    { "9bc76d6a-8f8a-4401-b320-eaa486ead148", new[] { 5 }, "1f7d88c8-c9b3-4fa3-bb8c-188432e43835", "Pode deletar uma role/permissão", "CanRoleDelete", "CANROLEDELETE", "ac-role-page" },
-                    { "9cfb692f-657b-4f2f-91dd-e37d39d0bfe2", new[] { 1, 2, 3, 4, 5 }, "82ac1dec-dc13-4525-9ef7-f221292c6325", "Pode realizar todas as ações/operações em todos os usuários", "CanUserAll", "CANUSERALL", "ac-user-page" },
-                    { "aa1343e2-de1a-4d6a-b5c4-9455b2b2c90f", new[] { 4 }, "873533fe-a1c4-4c64-b1ce-ae084fb37b2e", "Pode atualizar os dados de um usuário", "CanUserUpdate", "CANUSERUPDATE", "ac-user-page" },
-                    { "ac9e58b4-29c2-434d-b1e9-0846ef5adf33", new[] { 3 }, "a94beaf8-2332-4790-9bde-c69c54a65047", "Pode criar uma role/permissão", "CanRoleCreate", "CANROLECREATE", "ac-role-page" },
+                    { "1081248d-f976-48cd-ad12-d1ab7a951d7f", new[] { 4 }, "6fb23e78-47ac-45b7-9c3b-c0de273cce3e", "Pode atualizar os dados de um grupo", "CanGroupUpdate", "CANGROUPUPDATE", "ac-group-page" },
+                    { "1a86e3c7-ad7e-41cf-b439-dc1eb0f0db05", new[] { 1, 2, 3, 4, 5 }, "de1af80e-8e86-4c8a-ac9d-35f3fea433ed", "Pode visualizar todos os indicadores da dashboard comercial", "CanClienteAll", "CANCLIENTEALL", "ac-cliente-page" },
+                    { "1f11b82d-8149-4b08-b910-d65b0cd1d9d8", new[] { 2 }, "b13a80ec-1716-4fe2-ab8a-4670d6a4116c", "Pode listar os dados de uma roles/permissão", "CanRoleRead", "CANROLEREAD", "ac-role-page" },
+                    { "21299628-27c9-426e-b4f7-806d605f43d2", new[] { 5 }, "c523f829-dda5-4353-921d-807a769276c6", "Pode deletar um cliente", "CanClienteDelete", "CANCLIENTEDELETE", "ac-cliente-page" },
+                    { "26513c23-87ec-444d-9c51-d663f5bfdd05", new[] { 1 }, "f7910baa-c623-4283-8f66-3a884348175b", "Pode listar os dados de todos os usuários", "CanUserList", "CANUSERLIST", "ac-user-page" },
+                    { "2afcfacd-63e0-4c15-8594-be42fa39c325", new[] { 4 }, "d3e4db3c-c053-4fb4-b39e-688110d7a4d9", "Pode atualizar os dados de um usuário", "CanUserUpdate", "CANUSERUPDATE", "ac-user-page" },
+                    { "3a0cd7e1-0d2f-4002-8202-19a6abe5c9f5", new[] { 2 }, "1da6dab7-9e90-409a-8911-4a0ab39449d6", "Pode listar os dado de um grupo", "CanGroupRead", "CANGROUPREAD", "ac-group-page" },
+                    { "4b806712-9502-46f0-b4f6-5f9abc67b0cb", new[] { 1 }, "2c150d7f-214e-4829-84f2-ebd9942da543", "Pode listar os dados de todos os grupos", "CanGroupList", "CANGROUPLIST", "ac-group-page" },
+                    { "528ba46c-0356-431e-a86e-6186955029a7", new[] { 1, 2, 3, 4, 5 }, "6ce9b0ec-ed92-498f-9a95-92dd87cd90f2", "Pode realizar todas as ações/operações em todas as dashboards", "CanDashboardAll", "CANDASHBOARDALL", "ac-dashboard-page" },
+                    { "5b8cd6e6-cfdc-4516-b7cd-de831996ed25", new[] { 5 }, "4383f5bd-226f-4f1c-b32c-3d24da493221", "Pode deletar um grupo", "CanGroupDelete", "CANGROUPDELETE", "ac-group-page" },
+                    { "6638e42f-6acc-4801-97bd-5865c61c2ee6", new[] { 1 }, "1ee600a9-d417-4d52-bbe1-914a35acddd2", "Pode listar os dados de todos os clientes", "CanClienteList", "CANCLIENTELIST", "ac-cliente-page" },
+                    { "66751c3c-1ad9-47cd-bf7e-945b524a4dc1", new[] { 3 }, "00e242ca-9390-4219-bacc-e3508e787ebe", "Pode criar uma role/permissão", "CanRoleCreate", "CANROLECREATE", "ac-role-page" },
+                    { "68eec4dc-0a76-4aa1-98a3-1dcc7ffa2d39", new[] { 5 }, "5762ad6e-8cb6-4f3f-a713-8188b9109f67", "Pode deletar um usuário", "CanUserDelete", "CANUSERDELETE", "ac-user-page" },
+                    { "690b1860-2708-46b9-b910-014509f884dc", new[] { 2 }, "6a49d83c-f92d-4a23-a3fb-396d98eac331", "Pode listar os dados de um usuários", "CanUserRead", "CANUSERREAD", "ac-user-page" },
+                    { "82657fa4-7f23-4e09-ba61-24f1894f0770", new[] { 2 }, "334af10d-6705-435b-a691-7d8e4bffad4a", "Pode listar os dado de um cliente", "CanClienteRead", "CANCLIENTEREAD", "ac-cliente-page" },
+                    { "8af80ad7-8a34-467c-a6e2-f451c813883b", new[] { 4 }, "0dce96a4-9b4c-4d0e-81d5-7aebb95a0e19", "Pode atualizar os dados de uma roles/permissão", "CanRoleUpdate", "CANROLEUPDATE", "ac-role-page" },
+                    { "8d64ee64-22ab-44a4-b1df-67382b289895", new[] { 3 }, "4c095b63-0897-4835-80dc-9594df3135e4", "Pode criar um usuário", "CanUserCreate", "CANUSERCREATE", "ac-user-page" },
+                    { "9019b807-c03d-49c8-b3eb-1a0520e7a272", new[] { 1, 2, 3, 4, 5 }, "3afb76d5-f3a0-4fa5-b9b0-85f110f32d6c", "Pode realizar todas as ações/operações em todos os usuários", "CanUserAll", "CANUSERALL", "ac-user-page" },
+                    { "942c0974-2f70-4c4d-83a7-5693004cb6f6", new[] { 5 }, "1bba5282-2801-4b5d-a20e-9e27cfcfe1bb", "Pode deletar uma role/permissão", "CanRoleDelete", "CANROLEDELETE", "ac-role-page" },
+                    { "a38cf126-fd07-44e0-88e3-ca6b78181b30", new[] { 1, 2, 3, 4, 5 }, "8cda94c6-7f92-48e6-b0d5-fcfd0d43f6b1", "Pode realizar todas as ações/operações em todos os grupos", "CanGroupAll", "CANGROUPALL", "ac-group-page" },
                     { "b0f96d85-3647-4651-9f78-b7529b577ec0", new[] { 0 }, "4629cea3-3b65-43b9-9c4e-7cc68fe4e4e4", "Pode realizar todas as ações/operações, bem como ter acesso a todos os dados e funcionalidades", "Master", "MASTER", "all" },
-                    { "c835e33b-3737-47a7-8929-a25c2b8161b5", new[] { 1, 2, 3, 4, 5 }, "9e67024f-b11c-40bd-b76c-35c5e2c3e42a", "Pode realizar todas as ações/operações em todas as dashboards", "CanDashboardAll", "CANDASHBOARDALL", "ac-dashboard-page" },
-                    { "cc342f4d-a3c7-4b32-a0fb-1361236c06e0", new[] { 1 }, "0206436e-d277-4534-b580-679b1618b077", "Pode listar o título dos negócios", "CanTitleBussinesList", "CANTITLEBUSSINESLIST", "ac-titleBussines-page" },
-                    { "e474b0e9-ef5c-4195-a3fe-672e5bda0dba", new[] { 2 }, "89e2a71c-bd9a-444d-8031-ebacb27452a6", "Pode listar os dado de um cliente", "CanClienteRead", "CANCLIENTEREAD", "ac-cliente-page" },
-                    { "effce3dc-f914-4995-a8b3-85e192ab0d89", new[] { 3 }, "6667ae00-ebe0-46b2-91e7-4fa602e0f658", "Pode criar um cliente", "CanClienteCreate", "CANCLIENTECREATE", "ac-cliente-page" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[,]
-                {
-                    { 1, "Todos Role", "Todos Role", "1e526008-75f7-4a01-9942-d178f2b38888" },
-                    { 2, "Relatorios Role", "Relatorios Role", "1e526008-75f7-4a01-9942-d178f2b38888" }
+                    { "b1094847-33fe-4872-b694-c7fc9c9ac3cb", new[] { 1, 2, 3, 4, 5 }, "0a2476c9-276c-44a4-900f-844b25ac3582", "Pode realizar todas as ações/operações em dashboard publica", "CanDashboardPublicaAll", "CANDASHBOARDPUBLICAALL", "ac-dashboardPublica-page" },
+                    { "bd012c34-165e-4159-acec-0d1de4dbde51", new[] { 3 }, "4a08bdd6-8cf1-455e-b35e-397ac3c268a8", "Pode criar um grupo", "CanGroupCreate", "CANGROUPCREATE", "ac-group-page" },
+                    { "c8323299-a311-43fa-804f-deed0c202bb0", new[] { 4 }, "e9ddb4f6-5c4f-440e-b530-d5fba5dce521", "Pode atualizar os dados de um cliente", "CanClienteUpdate", "CANCLIENTEUPDATE", "ac-cliente-page" },
+                    { "d2fbac7c-7502-4004-8aa2-686812ee8022", new[] { 3 }, "0b50b786-77c9-4372-a7c1-24457c7f2aac", "Pode criar um cliente", "CanClienteCreate", "CANCLIENTECREATE", "ac-cliente-page" },
+                    { "dda1ef7c-c033-4822-bfac-300788a30538", new[] { 1 }, "d5fae5df-68be-41eb-a13d-dd8639bc5daf", "Pode listar o título do sistema", "CanTitleSystemList", "CANTITLESYSTEMLIST", "ac-titleSystem-page" },
+                    { "f27e0f7c-ef53-4f93-bcd5-c195d0cd0cfd", new[] { 1 }, "e50ce833-94b4-44f9-8671-f4cc52c43839", "Pode listar os dados de todas as roles/permissões", "CanRoleList", "CANROLELIST", "ac-role-page" },
+                    { "fe0e455f-7e3d-45f6-b6de-a0cd37215209", new[] { 1, 2, 3, 4, 5 }, "6f259a74-1b49-4f0f-87b0-8449cbcb1ba4", "Pode realizar todas as ações/operações em todos as roles/permissões", "CanRoleAll", "CANROLEALL", "ac-role-page" },
+                    { "fe8b1c90-8d16-414f-a749-daff85a61f07", new[] { 1 }, "45a40863-9f17-4c45-9c93-69cee1aa6031", "Pode listar o título dos negócios", "CanTitleBussinesList", "CANTITLEBUSSINESLIST", "ac-titleBussines-page" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Tenants",
                 columns: new[] { "Id", "ApiKey", "Cnpj", "CreatedAt", "CreatedBy", "EmailPrincipal", "IsDeleted", "Nome", "NomeExibicao", "NomeFantasia", "RazaoSocial", "UpdatedAt", "UpdatedBy", "WhatsAppPrincipal" },
-                values: new object[] { new Guid("d8fe3845-3f2e-4b4e-aeb6-53222d60ff45"), new Guid("57d390e7-2b87-47fe-9bc8-0bae3a388499"), "27.195.267/0001-38", new DateTimeOffset(new DateTime(2023, 2, 1, 8, 30, 33, 221, DateTimeKind.Unspecified).AddTicks(1434), new TimeSpan(0, -3, 0, 0, 0)), "8e445865-a24d-4543-a6c6-9443d048cdb9", "tiago@rossokurtz.com.br", false, "Rosso e Kurtz Contadores Associados", "Rosso e Kurtz", null, null, new DateTimeOffset(new DateTime(2023, 2, 1, 8, 30, 33, 221, DateTimeKind.Unspecified).AddTicks(1474), new TimeSpan(0, -3, 0, 0, 0)), "8e445865-a24d-4543-a6c6-9443d048cdb9", null });
+                values: new object[] { new Guid("d8fe3845-3f2e-4b4e-aeb6-53222d60ff45"), new Guid("57d390e7-2b87-47fe-9bc8-0bae3a388499"), "27.195.267/0001-38", new DateTimeOffset(new DateTime(2023, 2, 1, 8, 56, 14, 936, DateTimeKind.Unspecified).AddTicks(990), new TimeSpan(0, -3, 0, 0, 0)), "8e445865-a24d-4543-a6c6-9443d048cdb9", "tiago@rossokurtz.com.br", false, "Rosso e Kurtz Contadores Associados", "Rosso e Kurtz", null, null, new DateTimeOffset(new DateTime(2023, 2, 1, 8, 56, 14, 936, DateTimeKind.Unspecified).AddTicks(1014), new TimeSpan(0, -3, 0, 0, 0)), "8e445865-a24d-4543-a6c6-9443d048cdb9", null });
 
             migrationBuilder.InsertData(
                 table: "AspNetGroups",
                 columns: new[] { "Id", "CreatedAt", "CreatedBy", "IsDeleted", "Name", "TenantId", "UniqueKey", "UpdatedAt", "UpdatedBy" },
-                values: new object[] { new Guid("23e63d9c-283b-496b-b7d8-7dac2ef7a822"), new DateTimeOffset(new DateTime(2023, 2, 1, 8, 30, 33, 223, DateTimeKind.Unspecified).AddTicks(8259), new TimeSpan(0, -3, 0, 0, 0)), "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "Master", new Guid("d8fe3845-3f2e-4b4e-aeb6-53222d60ff45"), "ors0eAr4DPkvrwhy5gVnQAqRDnJUO43j9HzbkPyZ/7Q=", new DateTimeOffset(new DateTime(2023, 2, 1, 8, 30, 33, 223, DateTimeKind.Unspecified).AddTicks(8285), new TimeSpan(0, -3, 0, 0, 0)), "8e445865-a24d-4543-a6c6-9443d048cdb9" });
+                values: new object[] { new Guid("23e63d9c-283b-496b-b7d8-7dac2ef7a822"), new DateTimeOffset(new DateTime(2023, 2, 1, 8, 56, 14, 937, DateTimeKind.Unspecified).AddTicks(2556), new TimeSpan(0, -3, 0, 0, 0)), "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "Master", new Guid("d8fe3845-3f2e-4b4e-aeb6-53222d60ff45"), "ors0eAr4DPkvrwhy5gVnQAqRDnJUO43j9HzbkPyZ/7Q=", new DateTimeOffset(new DateTime(2023, 2, 1, 8, 56, 14, 937, DateTimeKind.Unspecified).AddTicks(2566), new TimeSpan(0, -3, 0, 0, 0)), "8e445865-a24d-4543-a6c6-9443d048cdb9" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "UserId", "AccessFailedCount", "Avatar", "Bio", "ConcurrencyStamp", "DataAniversario", "Email", "EmailConfirmed", "FullName", "Funcao", "Genero", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Setor", "Status", "TenantId", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "", null, "ca431822-360a-4ee6-b978-66564d429fc7", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "alan.rezende@boxtecnologia.com.br", true, "ALAN LEITE DE REZENDE", 0, 0, false, null, "ALAN.REZENDE@BOXTECNOLOGIA.COM.BR", "ALAN.REZENDE@BOXTECNOLOGIA.COM.BR", "AQAAAAEAACcQAAAAEFGbgHKOKiDDs5fvXN8kHviorntHToMKurnVJNmsFQNInxhQOyZTwJ2w0SpbyCdZbA==", null, false, "c9514850-61dd-4cc1-b909-88b79b035643", 0, 0, new Guid("d8fe3845-3f2e-4b4e-aeb6-53222d60ff45"), false, "alan.rezende@boxtecnologia.com.br" });
+                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "", null, "ca431822-360a-4ee6-b978-66564d429fc7", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "alan.rezendeeee@hotmail.com", true, "ALAN LEITE DE REZENDE", 0, 0, false, null, "ALAN.REZENDEEEE@HOTMAIL.COM", "ALAN.REZENDEEEE@HOTMAIL.COM", "AQAAAAEAACcQAAAAEFGbgHKOKiDDs5fvXN8kHviorntHToMKurnVJNmsFQNInxhQOyZTwJ2w0SpbyCdZbA==", null, false, "c9514850-61dd-4cc1-b909-88b79b035643", 0, 0, new Guid("d8fe3845-3f2e-4b4e-aeb6-53222d60ff45"), false, "alan.rezendeeee@hotmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoleGroups",
@@ -415,11 +406,7 @@ namespace BoxBack.Infra.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { "2c5e174e-3b0e-446f-86af-483d56fd7210", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
-                    { "b3a5b61d-7ff4-43cb-bad4-a945b150fc72", "8e445865-a24d-4543-a6c6-9443d048cdb9" }
-                });
+                values: new object[] { "b0f96d85-3647-4651-9f78-b7529b577ec0", "8e445865-a24d-4543-a6c6-9443d048cdb9" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetGroups_TenantId",

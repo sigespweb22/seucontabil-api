@@ -29,10 +29,13 @@ namespace BoxBack.Infra.Data.Context
         }
 
         public DbSet<Tenant> Tenants { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<ApplicationGroup> ApplicationGroups { get; set; }
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { get; set; }
         public DbSet<ApplicationUserGroup> ApplicationUserGroups { get; set; }
+        public DbSet<ApplicationUserClaim> ApplicationUserClaims { get; set; }
+        public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<VerticalNavItem> VerticalNavItems { get; set; }
         
@@ -47,15 +50,15 @@ namespace BoxBack.Infra.Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new TenantMap());
-            modelBuilder.ApplyConfiguration(new ApplicationUserClaimMap());
-            modelBuilder.ApplyConfiguration(new ApplicationUserMap());
             modelBuilder.ApplyConfiguration(new ApplicationRoleMap());
-            modelBuilder.ApplyConfiguration(new ApplicationUserRoleMap());
             modelBuilder.ApplyConfiguration(new ApplicationGroupMap());
             modelBuilder.ApplyConfiguration(new ApplicationRoleGroupMap());
             modelBuilder.ApplyConfiguration(new ApplicationUserGroupMap());
             modelBuilder.ApplyConfiguration(new ClienteMap());
             modelBuilder.ApplyConfiguration(new VerticalNavItemMap());
+            modelBuilder.ApplyConfiguration(new ApplicationUserMap());
+            modelBuilder.ApplyConfiguration(new ApplicationUserClaimMap());
+            modelBuilder.ApplyConfiguration(new ApplicationUserRoleMap());
 
             modelBuilder.HasSequence<Int32>("OrderNumbers")
                         .StartsAt(1)
