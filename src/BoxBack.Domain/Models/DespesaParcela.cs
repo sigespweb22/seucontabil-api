@@ -25,7 +25,6 @@ namespace BoxBack.Domain.Models
         // Constructor empty for EF
         public DespesaParcela() {}
 
-
         public DateTimeOffset DataVencimento { get; set; }
         public Int32 ParcelaNumero { get; set; }
         public Int32 DiasEntreParcelas { get; set; }
