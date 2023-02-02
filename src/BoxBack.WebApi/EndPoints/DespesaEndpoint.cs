@@ -139,5 +139,153 @@ namespace BoxBack.WebApi.EndPoints
 
             return CustomResponse(201);
         }
+
+        /// <summary>
+        /// Atualiza uma DESPESA de um cliente
+        /// </summary>
+        /// <param name="despesaViewModel"></param>
+        /// <returns>True se atualizada com sucesso</returns>
+        /// <response code="204">Atualizada com sucesso</response>
+        /// <response code="400">Problemas de validação ou dados nulos</response>
+        /// <response code="500">Erro desconhecido</response>
+        [Authorize(Roles = "Master, CanDespesaUpdate, CanDespesaAll")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
+        [Route("update")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync([FromBody]DespesaViewModel despesaViewModel)
+        {
+            #region Required validations
+            if (!despesaViewModel.Id.HasValue ||
+                despesaViewModel.Id == Guid.Empty)
+            {
+                AddError("Id requerido.");
+                return CustomResponse(400);
+            }
+            #endregion
+
+            #region Get data for update
+            var despesaDB = new Despesa();
+            try
+            {
+                despesaDB = await _context
+                                        .Despesas
+                                        .AsNoTracking()
+                                        .FirstOrDefaultAsync(x => x.Id.Equals(despesaViewModel.Id));
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+
+            if (despesaDB == null)
+            {
+                AddError("Despesa do cliente não encontrada para atualizar.");
+                return CustomResponse(404);
+            }
+            #endregion
+
+            #region Map
+            var despesaMap = new Despesa();
+            try
+            {
+                despesaMap = _mapper.Map<DespesaViewModel, Despesa>(despesaViewModel, despesaDB);
+                despesaMap.Cliente = null;
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            #endregion
+
+            #region Update despesa cliente
+            try
+            {
+                _context.Despesas.Update(despesaMap);
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            #endregion
+            
+            #region Check to result
+            try
+            {
+                await _unitOfWork.CommitAsync(); 
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            #endregion
+
+            return CustomResponse(200, new { clienteId = despesaViewModel.ClienteId } );
+        }
+
+        /// <summary>
+        /// Altera o status de uma DESPESA de um cliente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>True se a operação foi realizada com sucesso</returns>
+        /// <response code="200">Status alterado com sucesso</response>
+        /// <response code="400">Problemas de validação ou dados nulos</response>
+        /// <response code="404">Not found</response>
+        /// <response code="500">Erro interno desconhecido</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /alter-status
+        ///     {
+        ///        "id": "f9c7d5a6-1181-4591-948b-5f97088e20a4"
+        ///     }
+        ///
+        /// </remarks>
+        [Authorize(Roles = "Master, CanDespesaUpdate, CanDespesaAll")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
+        [Route("alter-status/{id}")]
+        [HttpPut]
+        public async Task<IActionResult> AlterStatusAsync(Guid id)
+        {
+            #region Validations required
+            if (id == Guid.Empty)
+            {
+                AddError("Id requerido.");
+                return CustomResponse(400);
+            }
+            #endregion
+    
+            #region Get data
+            var despesa = new Despesa();
+            try
+            {
+                despesa = await _context.Despesas.FindAsync(id);
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            
+            if (despesa == null)
+            {
+                AddError("Despesa do cliente não encontrada para alterar seu status.");
+                return CustomResponse(404);
+            }
+            #endregion
+
+            #region Map
+            switch(despesa.IsDeleted)
+            {
+                case true:
+                    despesa.IsDeleted = false;
+                    break;
+                case false:
+                    despesa.IsDeleted = true;
+                    break;
+            }
+            #endregion
+
+            #region Alter status
+            try
+            {
+                _context.Despesas.Update(despesa);
+                _unitOfWork.Commit();
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            #endregion
+
+            return CustomResponse(200, new { message = "Status da despesa do cliente alterado com sucesso.", clienteId = despesa.ClienteId } );
+        }
     }
 }

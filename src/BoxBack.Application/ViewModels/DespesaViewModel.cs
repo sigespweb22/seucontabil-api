@@ -17,6 +17,7 @@ namespace BoxBack.Application.ViewModels
         public decimal? CustoEfetivoTotalDia { get; set; }
         public decimal? ValorEntrada { get; set; }
         public decimal? ValorParcelado { get; set; }
+        public string Status { get; set; }
         public Guid? ClienteId { get; set; }
     }
 }
