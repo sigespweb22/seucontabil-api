@@ -1,6 +1,8 @@
+using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using BoxBack.Domain.Enums;
+using System.Collections.Generic;
 
 namespace BoxBack.Domain.Models
 {
@@ -55,5 +57,7 @@ namespace BoxBack.Domain.Models
         // Relationships
         [ForeignKey("TenantId")]
         public Tenant Tenant { get; set; }
+
+        public ICollection<Despesa> Despesas { get; set; }
     }
 }

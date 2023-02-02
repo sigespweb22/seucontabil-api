@@ -37,6 +37,74 @@ namespace BoxBack.WebApi.EndPoints
         }
 
         /// <summary>
+        /// Lista de todas as DESPESAS de um cliente
+        /// </summary>
+        /// <param name="q"></param>
+        /// <param name="clienteId"></param>
+        /// <returns>Um json com as DESPESAS de um cliente</returns>
+        /// <response code="200">Lista de DESPESAS do cliente</response>
+        /// <response code="400">Problemas de validação ou dados nulos</response>
+        /// <response code="404">Lista vazia</response>
+        /// <response code="500">Erro desconhecido</response>
+        [Authorize(Roles = "Master, CanDespesaList, CanDespesaAll")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
+        [Route("list")]
+        [HttpGet]
+        public async Task<IActionResult> ListAsync(string q, Guid clienteId)
+        {
+            if (clienteId.Equals(Guid.Empty))
+            {
+                AddError("Id Cliente requerido.");
+                return CustomResponse(400);
+            }
+
+            #region Get data
+            var despesas = new List<Despesa>();
+            try
+            {
+                despesas = await _context.Despesas
+                                            .AsNoTracking()
+                                            .Include(x => x.Cliente)
+                                            .Where(x => x.ClienteId.Equals(clienteId))
+                                            .OrderByDescending(x => x.UpdatedAt)
+                                            .ToListAsync();
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+
+            if (despesas == null)
+            {
+                AddError("Não encontrado.");
+                return CustomResponse(404);
+            }
+            #endregion
+            
+            #region Filter search 
+            if(!string.IsNullOrEmpty(q))
+                despesas = despesas.Where(x => x.ValorPrincipal.Equals(q)).ToList();
+            #endregion
+
+            #region Map
+            IEnumerable<DespesaViewModel> despesasMapped = new List<DespesaViewModel>();
+            try
+            {
+                despesasMapped = _mapper.Map<IEnumerable<DespesaViewModel>>(despesas);
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            #endregion
+            
+            return Ok(new {
+                AllData = despesasMapped.ToList(),
+                clienteProdutos = despesasMapped.ToList(),
+                Params = q,
+                Total = despesasMapped.Count()
+            });
+        }
+
+        /// <summary>
         /// Cria uma despesa para um cliente
         /// </summary>
         /// <param name="despesaViewModel"></param>

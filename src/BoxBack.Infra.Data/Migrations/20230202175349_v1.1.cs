@@ -158,15 +158,16 @@ namespace BoxBack.Infra.Data.Migrations
                     SistemaParcelamento = table.Column<int>(type: "integer", nullable: false),
                     TotalParcelas = table.Column<int>(type: "integer", nullable: false),
                     DataOperacao = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ValorPrincipal = table.Column<decimal>(type: "numeric(12,9)", nullable: false, defaultValue: 0m),
-                    Iof = table.Column<decimal>(type: "numeric(7,6)", nullable: false, defaultValue: 0m),
-                    Seguro = table.Column<decimal>(type: "numeric(7,6)", nullable: false, defaultValue: 0m),
-                    Tarifa = table.Column<decimal>(type: "numeric(7,6)", nullable: false, defaultValue: 0m),
+                    ValorPrincipal = table.Column<decimal>(type: "numeric(12,2)", nullable: false, defaultValue: 0m),
+                    Iof = table.Column<decimal>(type: "numeric(7,2)", nullable: false, defaultValue: 0m),
+                    Seguro = table.Column<decimal>(type: "numeric(7,2)", nullable: false, defaultValue: 0m),
+                    Tarifa = table.Column<decimal>(type: "numeric(7,2)", nullable: false, defaultValue: 0m),
                     CustoEfetivoTotalAno = table.Column<decimal>(type: "numeric(8,6)", nullable: false, defaultValue: 0m),
                     CustoEfetivoTotalMes = table.Column<decimal>(type: "numeric(8,6)", nullable: false, defaultValue: 0m),
                     CustoEfetivoTotalDia = table.Column<decimal>(type: "numeric(8,6)", nullable: false, defaultValue: 0m),
-                    ValorEntrada = table.Column<decimal>(type: "numeric(12,9)", nullable: false, defaultValue: 0m),
-                    ValorParcelado = table.Column<decimal>(type: "numeric(12,9)", nullable: false, defaultValue: 0m),
+                    ValorEntrada = table.Column<decimal>(type: "numeric(12,2)", nullable: false, defaultValue: 0m),
+                    ValorParcelado = table.Column<decimal>(type: "numeric(12,2)", nullable: false, defaultValue: 0m),
+                    ClienteId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
@@ -177,6 +178,11 @@ namespace BoxBack.Infra.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Despesas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Despesas_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -215,47 +221,47 @@ namespace BoxBack.Infra.Data.Migrations
                 keyColumn: "Id",
                 keyValue: new Guid("23e63d9c-283b-496b-b7d8-7dac2ef7a822"),
                 columns: new[] { "CreatedAt", "UpdatedAt" },
-                values: new object[] { new DateTimeOffset(new DateTime(2023, 2, 2, 11, 50, 1, 523, DateTimeKind.Unspecified).AddTicks(652), new TimeSpan(0, -3, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 2, 2, 11, 50, 1, 523, DateTimeKind.Unspecified).AddTicks(674), new TimeSpan(0, -3, 0, 0, 0)) });
+                values: new object[] { new DateTimeOffset(new DateTime(2023, 2, 2, 14, 53, 49, 87, DateTimeKind.Unspecified).AddTicks(9404), new TimeSpan(0, -3, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 2, 2, 14, 53, 49, 87, DateTimeKind.Unspecified).AddTicks(9419), new TimeSpan(0, -3, 0, 0, 0)) });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "Actions", "ConcurrencyStamp", "Description", "Name", "NormalizedName", "Subject" },
                 values: new object[,]
                 {
-                    { "0bef74fc-6a96-4425-8957-92238777f105", new[] { 1 }, "bde7645d-292a-429c-b482-f2c0c1d13d09", "Pode listar os dados de todos os usuários", "CanUserList", "CANUSERLIST", "ac-user-page" },
-                    { "1aa11dc6-98b2-4a16-9908-238d1cedf152", new[] { 5 }, "1314a66f-9241-451c-aad7-9283803ad5e9", "Pode deletar um usuário", "CanUserDelete", "CANUSERDELETE", "ac-user-page" },
-                    { "1d849f58-c8d0-4477-a5d0-928bfb73ce21", new[] { 3 }, "68d270c9-c308-406e-b124-655f72919ef6", "Pode criar uma despesa", "CanDespesaCreate", "CANDESPESACREATE", "ac-despesa-page" },
-                    { "206eac4d-1b8f-49ec-9dd4-92836842fb55", new[] { 1, 2, 3, 4, 5 }, "e8b17802-df7e-4f1f-a54c-a16663d5ecf4", "Pode realizar todas as ações/operações em todos os grupos", "CanGroupAll", "CANGROUPALL", "ac-group-page" },
-                    { "2273b4d9-3739-4e44-aa6a-c20907415543", new[] { 1 }, "9f81ad08-efea-4a97-aa10-c65079acf68d", "Pode listar o título dos negócios", "CanTitleBussinesList", "CANTITLEBUSSINESLIST", "ac-titleBussines-page" },
-                    { "22d6b356-e131-4971-bbcf-cd1e9292aea9", new[] { 1, 2, 3, 4, 5 }, "a51c354a-59ff-48a9-8d6a-2f60d9139696", "Pode realizar todas as ações/operações em todas as dashboards", "CanDashboardAll", "CANDASHBOARDALL", "ac-dashboard-page" },
-                    { "25ae6f96-76d5-40a7-bbbb-a65f76c10619", new[] { 1 }, "9701c7da-a7cc-4a11-956a-62e8c4c0f9dd", "Pode listar os dados de todas as despesas", "CanDespesaList", "CANDESPESALIST", "ac-despesa-page" },
-                    { "28ca3f22-dde6-4480-8a0b-3b4908ea93c3", new[] { 5 }, "15de51d3-9286-41d9-86d2-9a57a12f0622", "Pode deletar um grupo", "CanGroupDelete", "CANGROUPDELETE", "ac-group-page" },
-                    { "292f6078-8810-4865-a51a-bfc1e3c91ff0", new[] { 4 }, "f3177ffa-9895-4039-a9fa-c167068b9889", "Pode atualizar os dados de um usuário", "CanUserUpdate", "CANUSERUPDATE", "ac-user-page" },
-                    { "2bab5374-f11e-4c4f-9101-a3b8f79b126f", new[] { 2 }, "5c9a2fa9-02c1-473c-a88c-1113ca3516ca", "Pode listar os dado de um grupo", "CanGroupRead", "CANGROUPREAD", "ac-group-page" },
-                    { "2fb29f71-0b8f-48eb-892e-42fbbc0dcf1c", new[] { 2 }, "8545c92d-db66-4053-92e9-db2209868358", "Pode listar os dados de um usuários", "CanUserRead", "CANUSERREAD", "ac-user-page" },
-                    { "36405791-37cb-4946-99f9-ec7ecb8201a7", new[] { 2 }, "a2dab7bc-cc74-4b7c-a9f5-1643ad6ef667", "Pode listar os dado de um cliente", "CanClienteRead", "CANCLIENTEREAD", "ac-cliente-page" },
-                    { "3cb9899a-4fd4-4599-8b49-00966f7aa8f9", new[] { 2 }, "16b6849d-d07b-4236-94ed-51005d4c974d", "Pode listar os dados de uma despesa", "CanDespesaRead", "CANDESPESAREAD", "ac-despesa-page" },
-                    { "46a8c774-1095-4b3d-9a8b-88b55713c614", new[] { 5 }, "354693c6-71dd-40c9-9a5d-44591699d45d", "Pode deletar uma despesa", "CanDespesaDelete", "CANDESPESADELETE", "ac-despesa-page" },
-                    { "477cb8da-0366-49fb-8466-2f0565d41114", new[] { 3 }, "f1007b96-7974-437e-b868-daf3508171be", "Pode criar uma role/permissão", "CanRoleCreate", "CANROLECREATE", "ac-role-page" },
-                    { "492c007f-bdd5-4aef-a3eb-20778d3a269f", new[] { 4 }, "441042e1-f9c6-4385-ada1-e9054dff7060", "Pode atualizar os dados de um cliente", "CanClienteUpdate", "CANCLIENTEUPDATE", "ac-cliente-page" },
-                    { "4b646b8a-eba2-45c5-8133-5a3cbf690117", new[] { 2 }, "e4a333f0-6f8b-42ae-8d5a-4cb9ecdef2d0", "Pode listar os dados de uma roles/permissão", "CanRoleRead", "CANROLEREAD", "ac-role-page" },
-                    { "4c324b77-950a-49ef-97f3-721ec153e2f5", new[] { 1, 2, 3, 4, 5 }, "65c3309a-010d-4bd6-bebe-c54fab13e94c", "Pode realizar todas as ações/operações em todos as roles/permissões", "CanRoleAll", "CANROLEALL", "ac-role-page" },
-                    { "4f70900d-4a81-401d-b7bc-fa0823e38e7d", new[] { 4 }, "d98ec714-11bc-4514-a567-214f508c2930", "Pode atualizar os dados de um grupo", "CanGroupUpdate", "CANGROUPUPDATE", "ac-group-page" },
-                    { "59a4f5a2-fbee-42d7-a226-cea3d057e079", new[] { 1 }, "a8b6932f-4bfc-4f88-9636-9db79d3be120", "Pode listar os dados de todos os grupos", "CanGroupList", "CANGROUPLIST", "ac-group-page" },
-                    { "6026db88-6583-4dcc-9198-435519e2bd34", new[] { 1 }, "88504a0a-11e0-47bf-9c13-4015aa55f03b", "Pode listar o título do sistema", "CanTitleSystemList", "CANTITLESYSTEMLIST", "ac-titleSystem-page" },
-                    { "7d0cf997-4965-400a-b81e-616c9c15526e", new[] { 1 }, "80d7e843-7a96-4c04-a164-baa45d4dbfa7", "Pode listar os dados de todas as roles/permissões", "CanRoleList", "CANROLELIST", "ac-role-page" },
-                    { "82ce7c15-5d9d-4b29-9f01-59cabdf0239e", new[] { 5 }, "73392a23-7d30-4646-b46f-b6543a4ba7fe", "Pode deletar uma role/permissão", "CanRoleDelete", "CANROLEDELETE", "ac-role-page" },
-                    { "85b55b24-3a8e-498d-a60e-a13c33c0b925", new[] { 1 }, "6cb24c3b-88cd-424a-9be4-07dbe8d9920e", "Pode listar os dados de todos os clientes", "CanClienteList", "CANCLIENTELIST", "ac-cliente-page" },
-                    { "9088ff5d-1090-423b-8311-81438bab2f71", new[] { 1, 2, 3, 4, 5 }, "18289e49-1741-4576-b328-b1da67662f2e", "Pode realizar todas as ações/operações em todos os clientes", "CanClienteAll", "CANCLIENTEALL", "ac-cliente-page" },
-                    { "94cac223-5abd-4bac-8223-3cc6ae171906", new[] { 4 }, "535053f6-9f19-4420-b5e7-ce7736bb67ac", "Pode atualizar os dados de uma despesa", "CanDespesaUpdate", "CANDESPESAUPDATE", "ac-despesa-page" },
-                    { "9efcb441-34b0-4ca9-bd17-89c2256ba15f", new[] { 4 }, "f86e475a-241c-41c9-bc3b-c565f0257bcb", "Pode atualizar os dados de uma roles/permissão", "CanRoleUpdate", "CANROLEUPDATE", "ac-role-page" },
-                    { "a591d88e-951d-4781-a83b-42aa6bc49578", new[] { 1, 2, 3, 4, 5 }, "b69ea726-beac-4ef7-be7b-2b9fd93d5510", "Pode realizar todas as ações/operações em dashboard publica", "CanDashboardPublicaAll", "CANDASHBOARDPUBLICAALL", "ac-dashboardPublica-page" },
-                    { "add6aa62-88b2-406a-9ad2-10fdab522e26", new[] { 1, 2, 3, 4, 5 }, "8bb993ab-4995-40ee-bb45-a6c8384e8cdc", "Pode realizar todas as ações/operações em todos os usuários", "CanUserAll", "CANUSERALL", "ac-user-page" },
-                    { "c5cc44d9-fdaf-4432-9673-41525d501fc5", new[] { 1, 2, 3, 4, 5 }, "4a05a846-6133-43a6-8118-f9a7b0c2338c", "Pode realizar todas as ações/operações em todas as despesas", "CanDespesaAll", "CANDESPESAALL", "ac-despesa-page" },
-                    { "d8c3c38b-fa99-4b01-87c9-1c7965fbe6f3", new[] { 5 }, "f40167c4-ff8d-4dbb-88eb-ce9dc2be87c4", "Pode deletar um cliente", "CanClienteDelete", "CANCLIENTEDELETE", "ac-cliente-page" },
-                    { "f5ccd8b1-26f9-4d1b-8e77-d49e84d4465f", new[] { 3 }, "a737315f-9a21-4510-90ac-229c25ee592a", "Pode criar um cliente", "CanClienteCreate", "CANCLIENTECREATE", "ac-cliente-page" },
-                    { "fa5c6799-56f8-4ad2-8e73-f67134d0f6d4", new[] { 3 }, "54397aee-1e45-459f-a0e7-2af3fc38b0a0", "Pode criar um grupo", "CanGroupCreate", "CANGROUPCREATE", "ac-group-page" },
-                    { "ff9f8f14-8e11-4bd6-b220-a8fa02379b25", new[] { 3 }, "c1e1e2a2-439b-4409-b160-5bcc59c7bc8f", "Pode criar um usuário", "CanUserCreate", "CANUSERCREATE", "ac-user-page" }
+                    { "04877df7-7613-4b15-bbea-a8b39003dacf", new[] { 5 }, "29370f3b-362b-42dd-a442-68caa82fc861", "Pode deletar um usuário", "CanUserDelete", "CANUSERDELETE", "ac-user-page" },
+                    { "0998fcc6-89d7-4520-a901-672b6f1f656f", new[] { 1 }, "66769de7-33d4-4527-a3f4-d7bac3bd5850", "Pode listar os dados de todas as despesas", "CanDespesaList", "CANDESPESALIST", "ac-despesa-page" },
+                    { "0e5ff859-8e22-4e80-ba3c-afc219a0fb23", new[] { 5 }, "27410d01-dac7-4e55-9402-ba2b59d8f557", "Pode deletar um grupo", "CanGroupDelete", "CANGROUPDELETE", "ac-group-page" },
+                    { "0eed2abd-b27d-4c66-a99c-8e77176f3462", new[] { 1, 2, 3, 4, 5 }, "250fef26-80a5-4ef3-9a5e-5e9782af8463", "Pode realizar todas as ações/operações em todas as despesas", "CanDespesaAll", "CANDESPESAALL", "ac-despesa-page" },
+                    { "129d700c-09b7-4d3d-ad6b-8862c961de1d", new[] { 2 }, "dc15752c-af79-41ab-8a6f-bae7ac260134", "Pode listar os dado de um cliente", "CanClienteRead", "CANCLIENTEREAD", "ac-cliente-page" },
+                    { "130bcd27-1686-4c98-b9e5-7e5d6c44384c", new[] { 4 }, "0c22fcbc-c2f9-4168-9e4c-3aaf70bd0f72", "Pode atualizar os dados de um grupo", "CanGroupUpdate", "CANGROUPUPDATE", "ac-group-page" },
+                    { "23649d1a-451c-4e8b-9346-1bc63827388c", new[] { 4 }, "ff72717a-d61d-4624-abcb-2c5a734c5e4b", "Pode atualizar os dados de uma despesa", "CanDespesaUpdate", "CANDESPESAUPDATE", "ac-despesa-page" },
+                    { "23de81bc-72f8-43ff-9a6d-f72b7e234056", new[] { 1, 2, 3, 4, 5 }, "87ef3cee-6fd3-4b83-8463-79a595cd4054", "Pode realizar todas as ações/operações em todos os grupos", "CanGroupAll", "CANGROUPALL", "ac-group-page" },
+                    { "2d679406-2424-4c33-a276-4fbc5168b97a", new[] { 4 }, "54abddbf-d3c0-43f9-a992-30d3663da09f", "Pode atualizar os dados de uma roles/permissão", "CanRoleUpdate", "CANROLEUPDATE", "ac-role-page" },
+                    { "46b7d349-b492-4999-8daa-dabbf099ed28", new[] { 1, 2, 3, 4, 5 }, "37bf42eb-6bd1-4fbf-b9a8-11ddd91d9779", "Pode realizar todas as ações/operações em todos as roles/permissões", "CanRoleAll", "CANROLEALL", "ac-role-page" },
+                    { "4a11ff70-2667-4793-84cb-acdd48d29a55", new[] { 5 }, "8aa7dbe8-0a3f-4d65-8ea1-f57245acf3bb", "Pode deletar uma despesa", "CanDespesaDelete", "CANDESPESADELETE", "ac-despesa-page" },
+                    { "51ceb4a1-4674-4ab8-91de-5ea293128785", new[] { 1 }, "43a89537-ecc8-4a90-98b4-10fd53816d46", "Pode listar os dados de todos os usuários", "CanUserList", "CANUSERLIST", "ac-user-page" },
+                    { "61bc958b-8893-4f02-930c-14ae833cf22c", new[] { 3 }, "e86ee3c3-7979-477f-9fd2-87168d69158e", "Pode criar um usuário", "CanUserCreate", "CANUSERCREATE", "ac-user-page" },
+                    { "64d9c569-97a5-46dc-af15-ca92c272a246", new[] { 2 }, "2b1ae4cb-4aa9-4ea4-be72-ec85f769bdf0", "Pode listar os dados de uma roles/permissão", "CanRoleRead", "CANROLEREAD", "ac-role-page" },
+                    { "71bf3ffd-219d-4096-82cf-2cc7c37fdd8c", new[] { 5 }, "66644ea8-97da-4387-93f3-a9f5141528cc", "Pode deletar uma role/permissão", "CanRoleDelete", "CANROLEDELETE", "ac-role-page" },
+                    { "8651b792-b12f-426a-943c-1563e0a4b1a5", new[] { 2 }, "aa1728cf-0cca-4bd4-871b-bf612101cc36", "Pode listar os dados de uma despesa", "CanDespesaRead", "CANDESPESAREAD", "ac-despesa-page" },
+                    { "91d3fb32-a476-4452-9c7f-9b62d8f12acd", new[] { 4 }, "234b6e4d-f7e6-4b05-a02d-e7b5a6cdaf3e", "Pode atualizar os dados de um cliente", "CanClienteUpdate", "CANCLIENTEUPDATE", "ac-cliente-page" },
+                    { "978e15bb-136f-4876-8883-7ace0aba0b0f", new[] { 1, 2, 3, 4, 5 }, "254d3f0d-147f-4e1b-bfe8-2717d6bfcff5", "Pode realizar todas as ações/operações em todos os clientes", "CanClienteAll", "CANCLIENTEALL", "ac-cliente-page" },
+                    { "9b502053-27ae-4f62-9d9a-4f4bfc029f12", new[] { 1, 2, 3, 4, 5 }, "f66f8bb3-41e0-42e0-8caf-d18409593073", "Pode realizar todas as ações/operações em todos os usuários", "CanUserAll", "CANUSERALL", "ac-user-page" },
+                    { "9db7520a-cefb-4a25-8969-e3abc1c570b6", new[] { 1 }, "285a95ff-aee5-46d4-9a91-de6281e58f9c", "Pode listar o título do sistema", "CanTitleSystemList", "CANTITLESYSTEMLIST", "ac-titleSystem-page" },
+                    { "a216112c-2865-42f1-88fe-879376313ac3", new[] { 4 }, "70136ce3-8fd5-4635-a718-6bdfeb4cb9d9", "Pode atualizar os dados de um usuário", "CanUserUpdate", "CANUSERUPDATE", "ac-user-page" },
+                    { "a4340d1e-c2b5-406c-9bde-3c8966696258", new[] { 1, 2, 3, 4, 5 }, "3146f408-e994-47ac-ae91-5a4dcafaf7b9", "Pode realizar todas as ações/operações em todas as dashboards", "CanDashboardAll", "CANDASHBOARDALL", "ac-dashboard-page" },
+                    { "a6b5d54f-51a2-4c42-ac50-1f7c45cb866e", new[] { 1, 2, 3, 4, 5 }, "97b19668-a556-4d4b-b520-aa719aadab2e", "Pode realizar todas as ações/operações em dashboard publica", "CanDashboardPublicaAll", "CANDASHBOARDPUBLICAALL", "ac-dashboardPublica-page" },
+                    { "a8403a6f-adf6-490c-a0ff-b2f90ab7e4c9", new[] { 3 }, "953b267b-6db3-4866-83f2-1a667b13db4d", "Pode criar uma role/permissão", "CanRoleCreate", "CANROLECREATE", "ac-role-page" },
+                    { "b4ad96e0-c4c2-4748-b1f7-5f0e63c737cd", new[] { 3 }, "a3ff2a35-5b11-456c-ab21-a27cb0f8db80", "Pode criar um grupo", "CanGroupCreate", "CANGROUPCREATE", "ac-group-page" },
+                    { "bd40056d-c0db-453b-b246-27653a6ab00e", new[] { 2 }, "2768d7df-5efd-4551-8dac-7bcea4545dae", "Pode listar os dados de um usuários", "CanUserRead", "CANUSERREAD", "ac-user-page" },
+                    { "c2121091-ee67-4ab3-a230-49316a4f6fa7", new[] { 1 }, "831a6ac3-46a5-437f-89ab-d58cb7299b07", "Pode listar os dados de todas as roles/permissões", "CanRoleList", "CANROLELIST", "ac-role-page" },
+                    { "d781ce48-cb98-4ebc-8f51-aff3262289b1", new[] { 5 }, "de876fb9-f7ed-4efa-9028-6b752e57d878", "Pode deletar um cliente", "CanClienteDelete", "CANCLIENTEDELETE", "ac-cliente-page" },
+                    { "d7bbb015-63ac-4898-9231-b330caa97021", new[] { 3 }, "d3ee9e17-cdac-4a34-a6d1-953ff4c595ab", "Pode criar uma despesa", "CanDespesaCreate", "CANDESPESACREATE", "ac-despesa-page" },
+                    { "d9a76d55-1588-4465-82c9-a2284ca3632c", new[] { 2 }, "41658dc9-b41f-486d-9204-8a45f2d8915b", "Pode listar os dado de um grupo", "CanGroupRead", "CANGROUPREAD", "ac-group-page" },
+                    { "ec8b0708-5d73-4026-be76-be2d05e3dc73", new[] { 3 }, "23d3302e-966f-4810-99e9-b2a40f41e503", "Pode criar um cliente", "CanClienteCreate", "CANCLIENTECREATE", "ac-cliente-page" },
+                    { "ed6adbc2-7977-41b0-a890-3d2c35e2a1f4", new[] { 1 }, "49675052-5b8e-4ab5-8c06-afcb54b98266", "Pode listar os dados de todos os grupos", "CanGroupList", "CANGROUPLIST", "ac-group-page" },
+                    { "ee967e7c-4c35-4614-a361-0cf000f4559f", new[] { 1 }, "19e573d8-d1a8-455d-bec6-92579a8ff08d", "Pode listar o título dos negócios", "CanTitleBussinesList", "CANTITLEBUSSINESLIST", "ac-titleBussines-page" },
+                    { "f2dea96c-bd11-49e8-a67b-58a43b8694b0", new[] { 1 }, "996b1a80-af0a-40c2-a412-7fc4f9c73fa6", "Pode listar os dados de todos os clientes", "CanClienteList", "CANCLIENTELIST", "ac-cliente-page" }
                 });
 
             migrationBuilder.UpdateData(
@@ -263,7 +269,12 @@ namespace BoxBack.Infra.Data.Migrations
                 keyColumn: "Id",
                 keyValue: new Guid("d8fe3845-3f2e-4b4e-aeb6-53222d60ff45"),
                 columns: new[] { "CreatedAt", "UpdatedAt" },
-                values: new object[] { new DateTimeOffset(new DateTime(2023, 2, 2, 11, 50, 1, 521, DateTimeKind.Unspecified).AddTicks(4685), new TimeSpan(0, -3, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 2, 2, 11, 50, 1, 521, DateTimeKind.Unspecified).AddTicks(4722), new TimeSpan(0, -3, 0, 0, 0)) });
+                values: new object[] { new DateTimeOffset(new DateTime(2023, 2, 2, 14, 53, 49, 86, DateTimeKind.Unspecified).AddTicks(7309), new TimeSpan(0, -3, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 2, 2, 14, 53, 49, 86, DateTimeKind.Unspecified).AddTicks(7335), new TimeSpan(0, -3, 0, 0, 0)) });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Despesas_ClienteId",
+                table: "Despesas",
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DespesasParcelas_DespesaId",
@@ -282,172 +293,172 @@ namespace BoxBack.Infra.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "0bef74fc-6a96-4425-8957-92238777f105");
+                keyValue: "04877df7-7613-4b15-bbea-a8b39003dacf");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "1aa11dc6-98b2-4a16-9908-238d1cedf152");
+                keyValue: "0998fcc6-89d7-4520-a901-672b6f1f656f");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "1d849f58-c8d0-4477-a5d0-928bfb73ce21");
+                keyValue: "0e5ff859-8e22-4e80-ba3c-afc219a0fb23");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "206eac4d-1b8f-49ec-9dd4-92836842fb55");
+                keyValue: "0eed2abd-b27d-4c66-a99c-8e77176f3462");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "2273b4d9-3739-4e44-aa6a-c20907415543");
+                keyValue: "129d700c-09b7-4d3d-ad6b-8862c961de1d");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "22d6b356-e131-4971-bbcf-cd1e9292aea9");
+                keyValue: "130bcd27-1686-4c98-b9e5-7e5d6c44384c");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "25ae6f96-76d5-40a7-bbbb-a65f76c10619");
+                keyValue: "23649d1a-451c-4e8b-9346-1bc63827388c");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "28ca3f22-dde6-4480-8a0b-3b4908ea93c3");
+                keyValue: "23de81bc-72f8-43ff-9a6d-f72b7e234056");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "292f6078-8810-4865-a51a-bfc1e3c91ff0");
+                keyValue: "2d679406-2424-4c33-a276-4fbc5168b97a");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "2bab5374-f11e-4c4f-9101-a3b8f79b126f");
+                keyValue: "46b7d349-b492-4999-8daa-dabbf099ed28");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "2fb29f71-0b8f-48eb-892e-42fbbc0dcf1c");
+                keyValue: "4a11ff70-2667-4793-84cb-acdd48d29a55");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "36405791-37cb-4946-99f9-ec7ecb8201a7");
+                keyValue: "51ceb4a1-4674-4ab8-91de-5ea293128785");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "3cb9899a-4fd4-4599-8b49-00966f7aa8f9");
+                keyValue: "61bc958b-8893-4f02-930c-14ae833cf22c");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "46a8c774-1095-4b3d-9a8b-88b55713c614");
+                keyValue: "64d9c569-97a5-46dc-af15-ca92c272a246");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "477cb8da-0366-49fb-8466-2f0565d41114");
+                keyValue: "71bf3ffd-219d-4096-82cf-2cc7c37fdd8c");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "492c007f-bdd5-4aef-a3eb-20778d3a269f");
+                keyValue: "8651b792-b12f-426a-943c-1563e0a4b1a5");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "4b646b8a-eba2-45c5-8133-5a3cbf690117");
+                keyValue: "91d3fb32-a476-4452-9c7f-9b62d8f12acd");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "4c324b77-950a-49ef-97f3-721ec153e2f5");
+                keyValue: "978e15bb-136f-4876-8883-7ace0aba0b0f");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "4f70900d-4a81-401d-b7bc-fa0823e38e7d");
+                keyValue: "9b502053-27ae-4f62-9d9a-4f4bfc029f12");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "59a4f5a2-fbee-42d7-a226-cea3d057e079");
+                keyValue: "9db7520a-cefb-4a25-8969-e3abc1c570b6");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "6026db88-6583-4dcc-9198-435519e2bd34");
+                keyValue: "a216112c-2865-42f1-88fe-879376313ac3");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "7d0cf997-4965-400a-b81e-616c9c15526e");
+                keyValue: "a4340d1e-c2b5-406c-9bde-3c8966696258");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "82ce7c15-5d9d-4b29-9f01-59cabdf0239e");
+                keyValue: "a6b5d54f-51a2-4c42-ac50-1f7c45cb866e");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "85b55b24-3a8e-498d-a60e-a13c33c0b925");
+                keyValue: "a8403a6f-adf6-490c-a0ff-b2f90ab7e4c9");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "9088ff5d-1090-423b-8311-81438bab2f71");
+                keyValue: "b4ad96e0-c4c2-4748-b1f7-5f0e63c737cd");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "94cac223-5abd-4bac-8223-3cc6ae171906");
+                keyValue: "bd40056d-c0db-453b-b246-27653a6ab00e");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "9efcb441-34b0-4ca9-bd17-89c2256ba15f");
+                keyValue: "c2121091-ee67-4ab3-a230-49316a4f6fa7");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "a591d88e-951d-4781-a83b-42aa6bc49578");
+                keyValue: "d781ce48-cb98-4ebc-8f51-aff3262289b1");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "add6aa62-88b2-406a-9ad2-10fdab522e26");
+                keyValue: "d7bbb015-63ac-4898-9231-b330caa97021");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "c5cc44d9-fdaf-4432-9673-41525d501fc5");
+                keyValue: "d9a76d55-1588-4465-82c9-a2284ca3632c");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "d8c3c38b-fa99-4b01-87c9-1c7965fbe6f3");
+                keyValue: "ec8b0708-5d73-4026-be76-be2d05e3dc73");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "f5ccd8b1-26f9-4d1b-8e77-d49e84d4465f");
+                keyValue: "ed6adbc2-7977-41b0-a890-3d2c35e2a1f4");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "fa5c6799-56f8-4ad2-8e73-f67134d0f6d4");
+                keyValue: "ee967e7c-4c35-4614-a361-0cf000f4559f");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "ff9f8f14-8e11-4bd6-b220-a8fa02379b25");
+                keyValue: "f2dea96c-bd11-49e8-a67b-58a43b8694b0");
 
             migrationBuilder.UpdateData(
                 table: "AspNetGroups",

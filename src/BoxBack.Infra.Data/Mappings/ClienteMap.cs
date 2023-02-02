@@ -88,6 +88,11 @@ namespace BoxBack.Infra.Data.Mappings
                 .WithMany(c => c.Clientes)
                 .HasForeignKey(c => c.TenantId)
                 .OnDelete(DeleteBehavior.NoAction);
+            
+            builder
+                .HasMany(c => c.Despesas)
+                .WithOne(c => c.Cliente)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
