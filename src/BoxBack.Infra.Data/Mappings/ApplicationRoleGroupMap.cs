@@ -27,14 +27,14 @@ namespace BoxBack.Infra.Data.Mappings
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 
-            // Initial seed
-            // builder.HasData(
-            //     new ApplicationRoleGroup
-            //     {
-            //         RoleId = "b0f96d85-3647-4651-9f78-b7529b577ec0", // primary key
-            //         GroupId = new Guid("23e63d9c-283b-496b-b7d8-7dac2ef7a822") // primary key
-            //     }
-            // );
+            //Initial seed
+            builder.HasData(
+                new ApplicationRoleGroup
+                {
+                    RoleId = "b0f96d85-3647-4651-9f78-b7529b577ec0", // primary key
+                    GroupId = new Guid("23e63d9c-283b-496b-b7d8-7dac2ef7a822") // primary key
+                }
+            );
         }
     }
 }

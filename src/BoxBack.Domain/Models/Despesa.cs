@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BoxBack.Domain.Enums;
 
 namespace BoxBack.Domain.Models
@@ -46,6 +47,6 @@ namespace BoxBack.Domain.Models
         public decimal ValorParcelado { get; set; }
 
         // Relationships
-        public DespesaParcela DespesaParcelas { get; set; }
+        public ICollection<DespesaParcela> DespesaParcelas { get; set; }
     }
 }
