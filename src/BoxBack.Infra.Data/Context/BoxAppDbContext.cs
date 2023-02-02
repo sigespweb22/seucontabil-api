@@ -38,6 +38,8 @@ namespace BoxBack.Infra.Data.Context
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<VerticalNavItem> VerticalNavItems { get; set; }
+        public DbSet<Despesa> Despesas { get; set; }
+        public DbSet<DespesaParcela> DespesasParcelas { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
@@ -59,10 +61,12 @@ namespace BoxBack.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ApplicationUserMap());
             modelBuilder.ApplyConfiguration(new ApplicationUserClaimMap());
             modelBuilder.ApplyConfiguration(new ApplicationUserRoleMap());
+            modelBuilder.ApplyConfiguration(new DespesaMap());
+            modelBuilder.ApplyConfiguration(new DespesaParcelaMap());
 
-            modelBuilder.HasSequence<Int32>("OrderNumbers")
-                        .StartsAt(1)
-                        .IncrementsBy(1);
+            // modelBuilder.HasSequence<Int32>("OrderNumbers")
+            //             .StartsAt(1)
+            //             .IncrementsBy(1);
         }
 
         public override int SaveChanges()

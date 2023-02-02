@@ -10,9 +10,6 @@ namespace BoxBack.Infra.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateSequence<int>(
-                name: "OrderNumbers");
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -540,9 +537,6 @@ namespace BoxBack.Infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tenants");
-
-            migrationBuilder.DropSequence(
-                name: "OrderNumbers");
         }
     }
 }

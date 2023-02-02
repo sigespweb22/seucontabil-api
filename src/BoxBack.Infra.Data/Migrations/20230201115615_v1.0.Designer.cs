@@ -24,8 +24,6 @@ namespace BoxBack.Infra.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.HasSequence<int>("OrderNumbers");
-
             modelBuilder.Entity("BoxBack.Domain.Models.ApplicationGroup", b =>
                 {
                     b.Property<Guid>("Id")
