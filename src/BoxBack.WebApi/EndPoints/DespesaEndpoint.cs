@@ -76,7 +76,7 @@ namespace BoxBack.WebApi.EndPoints
             
             #region Filter search 
             if(!string.IsNullOrEmpty(q))
-                despesas = despesas.Where(x => x.ValorPrincipal.Equals(q)).ToList();
+                despesas = despesas.Where(x => x.Cliente.NomeFantasia.ToLower().Contains(q.ToLower())).ToList();
             #endregion
 
             #region Map
@@ -90,7 +90,7 @@ namespace BoxBack.WebApi.EndPoints
             
             return Ok(new {
                 AllData = despesasMapped.ToList(),
-                clienteProdutos = despesasMapped.ToList(),
+                Despesas = despesasMapped.ToList(),
                 Params = q,
                 Total = despesasMapped.Count()
             });
