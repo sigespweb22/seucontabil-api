@@ -165,6 +165,67 @@ namespace BoxBack.WebApi.EndPoints
         }
 
         /// <summary>
+        /// Retorna uma DESPESA pelo seu id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Um objeto com a despesa solicitada</returns>
+        /// <response code="200">Lista uma despesa</response>
+        /// <response code="400">Problemas de validação ou dados nulos</response>
+        /// <response code="404">Despesa não encontrada</response>
+        /// <response code="500">Erro desconhecido</response>
+        [Authorize(Roles = "Master, CanDespesaRead, CanDespesaAll")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
+        [Route("list-one/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> ListOneAsync([FromRoute]Guid id)
+        {
+            #region Required validations
+            if (id.Equals(Guid.Empty) || id.Equals(null))
+            {
+                AddError("Id requerido.");
+                return CustomResponse(400);
+            }
+            #endregion
+
+            #region Get data
+            var despesa = new Despesa();
+            try
+            {
+                despesa = await _context.Despesas
+                                            .AsNoTracking()
+                                            .Include(x => x.Cliente)
+                                            .FirstOrDefaultAsync(x => x.Id.Equals(id));
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+
+            if (despesa == null)
+            {
+                AddError("Não encontrado.");
+                return CustomResponse(404);
+            }
+            #endregion
+            
+            #region Map
+            var despesaMapped = new DespesaViewModel();
+            try
+            {
+                despesaMapped = _mapper.Map<DespesaViewModel>(despesa);
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            #endregion
+            
+            return Ok(new {
+                Data = despesaMapped,
+                Despesa = despesaMapped,
+                Params = id
+            });
+        }
+
+        /// <summary>
         /// Cria uma despesa para um cliente
         /// </summary>
         /// <param name="despesaViewModel"></param>
