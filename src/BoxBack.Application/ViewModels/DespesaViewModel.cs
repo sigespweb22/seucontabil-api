@@ -1,4 +1,6 @@
 using System;
+using BoxBack.Domain.Models;
+
 namespace BoxBack.Application.ViewModels
 {
     public class DespesaViewModel
@@ -19,5 +21,6 @@ namespace BoxBack.Application.ViewModels
         public decimal? ValorParcelado { get; set; }
         public string Status { get; set; }
         public Guid? ClienteId { get; set; }
+        public Cliente Cliente { get; set; }
     }
 }

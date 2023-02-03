@@ -70,7 +70,7 @@ namespace BoxBack.WebApi.EndPoints
             if (despesas == null)
             {
                 AddError("Não encontrado.");
-                return CustomResponse(404);
+                return CustomResponse(404); 
             }
             #endregion
             
