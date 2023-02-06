@@ -126,5 +126,77 @@ namespace BoxBack.WebApi.EndPoints
 
             return Ok(periodicidades);
         }
+
+        /// <summary>
+        /// Lista de todas as FORMAS DE PAGAMENTO
+        /// </summary>
+        /// <param></param>
+        /// <returns>Um json com todas as FORMAS DE PAGAMENTO</returns>
+        /// <response code="200">Lista das formas de pagamento</response>
+        /// <response code="400">Problemas de validação ou dados nulos</response>
+        /// <response code="404">Lista vazia</response>
+        /// <response code="500">Erro interno desconhecido</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
+        [Route("formas-pagamento/list")]
+        [HttpGet]
+        public IActionResult FormasPagamentoListAsync()
+        {
+            #region Get data
+            var formasPagamento = new List<string>();
+            try
+            {
+                formasPagamento = EnumExtensions<FormaPagamentoEnum>.GetNames().ToList();
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            if (formasPagamento.Count() == 0)
+            {
+                AddError("Não encontrado.");
+                return CustomResponse(404);
+            }
+            #endregion
+
+            return Ok(formasPagamento);
+        }
+
+        /// <summary>
+        /// Lista de todos os SISTEMAS DE PARCELAMENTO
+        /// </summary>
+        /// <param></param>
+        /// <returns>Um json com todos os SISTEMAS DE PARCELAMENTO</returns>
+        /// <response code="200">Lista dos SISTEMAS DE PARCELAMENTO</response>
+        /// <response code="400">Problemas de validação ou dados nulos</response>
+        /// <response code="404">Lista vazia</response>
+        /// <response code="500">Erro interno desconhecido</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
+        [Route("sistemas-parcelamento/list")]
+        [HttpGet]
+        public IActionResult SistemasParcelamentoListAsync()
+        {
+            #region Get data
+            var sistemasPacelamento = new List<string>();
+            try
+            {
+                sistemasPacelamento = EnumExtensions<SistemaParcelamentoEnum>.GetNames().ToList();
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            if (sistemasPacelamento.Count() == 0)
+            {
+                AddError("Não encontrado.");
+                return CustomResponse(404);
+            }
+            #endregion
+
+            return Ok(sistemasPacelamento);
+        }
     }
 }
