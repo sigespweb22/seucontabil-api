@@ -198,5 +198,41 @@ namespace BoxBack.WebApi.EndPoints
 
             return Ok(sistemasPacelamento);
         }
+
+        /// <summary>
+        /// Lista de todas as INSTITUIÇÕES FINANCEIRAS
+        /// </summary>
+        /// <param></param>
+        /// <returns>Um json com todas as INSTITUIÇÕES FINANCEIRAS</returns>
+        /// <response code="200">Lista das INSTITUIÇÕES FINANCEIRAS</response>
+        /// <response code="400">Problemas de validação ou dados nulos</response>
+        /// <response code="404">Lista vazia</response>
+        /// <response code="500">Erro interno desconhecido</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
+        [Route("instituicoes-financeiras/list")]
+        [HttpGet]
+        public IActionResult InstituicoesFinanceirasListAsync()
+        {
+            #region Get data
+            var instituicoesFinanceiras = new List<string>();
+            try
+            {
+                instituicoesFinanceiras = EnumExtensions<InstituicaoFinanceiraEnum>.GetNames().ToList();
+            }
+            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
+            if (instituicoesFinanceiras.Count() == 0)
+            {
+                AddError("Não encontrado.");
+                return CustomResponse(404);
+            }
+            #endregion
+
+            return Ok(instituicoesFinanceiras);
+        }
     }
 }
