@@ -53,5 +53,9 @@ namespace BoxBack.Domain.Models
         [ForeignKey("ClienteId")]
         public Guid ClienteId { get; set; }
         public Cliente Cliente  {get; set; }
+
+        [ForeignKey("CredorId")]
+        public Guid CredorId { get; set; }
+        public Credor credor { get; set; }
     }
 }
