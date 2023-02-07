@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BoxBack.Infra.Data.Mappings
 {
-    public class CredorMap : IEntityTypeConfiguration<Credor>
+    public class PessoaMap : IEntityTypeConfiguration<Pessoa>
     {
-        public void Configure(EntityTypeBuilder<Credor> builder)
+        public void Configure(EntityTypeBuilder<Pessoa> builder)
         {
-            builder.ToTable("Credores");
+            builder.ToTable("Pessoas");
 
             builder.HasKey(c => c.Id);
 
@@ -23,7 +23,7 @@ namespace BoxBack.Infra.Data.Mappings
             
             builder
                 .HasMany(c => c.Despesas)
-                .WithOne(c => c.Credor)
+                .WithOne(c => c.Pessoa)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

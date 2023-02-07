@@ -67,9 +67,9 @@ namespace BoxBack.Infra.Data.Mappings
                 .OnDelete(DeleteBehavior.NoAction);
             
             builder
-                .HasOne(c => c.Credor)
+                .HasOne(c => c.Pessoa)
                 .WithMany(c => c.Despesas)
-                .HasForeignKey(x => x.CredorId)
+                .HasForeignKey(x => x.PessoaId)
                 .OnDelete(DeleteBehavior.NoAction);
             
             builder

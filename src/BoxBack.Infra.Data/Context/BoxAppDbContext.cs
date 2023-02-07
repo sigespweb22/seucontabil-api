@@ -40,7 +40,7 @@ namespace BoxBack.Infra.Data.Context
         public DbSet<VerticalNavItem> VerticalNavItems { get; set; }
         public DbSet<Despesa> Despesas { get; set; }
         public DbSet<DespesaParcela> DespesasParcelas { get; set; }
-        public DbSet<Credor> Credores { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
@@ -64,7 +64,7 @@ namespace BoxBack.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ApplicationUserRoleMap());
             modelBuilder.ApplyConfiguration(new DespesaMap());
             modelBuilder.ApplyConfiguration(new DespesaParcelaMap());
-            modelBuilder.ApplyConfiguration(new CredorMap());
+            modelBuilder.ApplyConfiguration(new PessoaMap());
 
             // modelBuilder.HasSequence<Int32>("OrderNumbers")
             //             .StartsAt(1)

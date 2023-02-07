@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 namespace BoxBack.Domain.Models
 {
-    public class Credor : EntityAuditTenant
+    public class Pessoa : EntityAuditTenant
     {        
-        public Credor(string nomeFantasia, TipoPessoaEnum tipoPessoa)
+        public Pessoa(string nomeFantasia, TipoPessoaEnum tipoPessoa)
         {
             NomeFantasia = nomeFantasia;
             TipoPessoa = tipoPessoa;
         }
 
         // Constructor empty for EF
-        public Credor() {}
+        public Pessoa() {}
 
         public string NomeFantasia { get; set; }
         public TipoPessoaEnum? TipoPessoa { get; set; }
