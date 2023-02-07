@@ -39,6 +39,8 @@ namespace BoxBack.Application.AutoMapper
             CreateMap<ApplicationUser, UsuarioInfoViewModel>();
             CreateMap<Despesa, DespesaViewModel>()
                 .ForMember(dst => dst.Status, src => src.MapFrom(x => x.IsDeleted ?  "INACTIVE" : "ACTIVE"));
+            CreateMap<Pessoa, PessoaSelect2ViewModel>()
+                .ForMember(dst => dst.PessoaId, src => src.MapFrom(x => x.Id));
         }
     }
 }
