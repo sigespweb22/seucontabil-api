@@ -6,9 +6,11 @@ namespace BoxBack.Domain.Models
 {
     public class Pessoa : EntityAuditTenant
     {        
-        public Pessoa(string nomeFantasia, TipoPessoaEnum tipoPessoa)
+        public Pessoa(string nomeFantasia, NaturezaPessoaEnum naturezaPessoa,
+                      TipoPessoaEnum tipoPessoa)
         {
             NomeFantasia = nomeFantasia;
+            NaturezaPessoa = naturezaPessoa;
             TipoPessoa = tipoPessoa;
         }
 
@@ -16,6 +18,7 @@ namespace BoxBack.Domain.Models
         public Pessoa() {}
 
         public string NomeFantasia { get; set; }
+        public NaturezaPessoaEnum? NaturezaPessoa { get; set; }
         public TipoPessoaEnum? TipoPessoa { get; set; }
 
 
