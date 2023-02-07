@@ -56,6 +56,6 @@ namespace BoxBack.Domain.Models
 
         [ForeignKey("CredorId")]
         public Guid CredorId { get; set; }
-        public Credor credor { get; set; }
+        public Credor Credor { get; set; }
     }
 }

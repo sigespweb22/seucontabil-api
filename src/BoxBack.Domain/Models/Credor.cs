@@ -6,9 +6,10 @@ namespace BoxBack.Domain.Models
 {
     public class Credor : EntityAuditTenant
     {        
-        public Credor(string nomeFantasia)
+        public Credor(string nomeFantasia, TipoPessoaEnum tipoPessoa)
         {
             NomeFantasia = nomeFantasia;
+            TipoPessoa = tipoPessoa;
         }
 
         // Constructor empty for EF
