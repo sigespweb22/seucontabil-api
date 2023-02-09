@@ -41,6 +41,9 @@ namespace BoxBack.Application.AutoMapper
                 .ForMember(dst => dst.Status, src => src.MapFrom(x => x.IsDeleted ?  "INACTIVE" : "ACTIVE"));
             CreateMap<Pessoa, PessoaSelect2ViewModel>()
                 .ForMember(dst => dst.PessoaId, src => src.MapFrom(x => x.Id));
+            CreateMap<Cliente, ClienteSelect2ViewModel>()
+                .ForMember(dst => dst.ClienteId, src => src.MapFrom(x => x.Id))
+                .ForMember(dst  => dst.Nome, src => src.MapFrom(x => x.NomeFantasia));
         }
     }
 }
