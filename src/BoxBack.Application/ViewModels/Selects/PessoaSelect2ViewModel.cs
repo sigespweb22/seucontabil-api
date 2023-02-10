@@ -4,7 +4,7 @@ namespace BoxBack.Application.ViewModels.Selects
 {
     public class PessoaSelect2ViewModel
     {
-        public Guid PessoaId { get; set; }
-        public string NomeFantasia { get; set; }
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace BoxBack.WebApi.EndPoints
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Route("list-to-select")] 
+        [Route("list-to-select/")] 
         [HttpGet]
         public async Task<IActionResult> ListToSelectAsync(string naturezaPessoa, bool isDeleted = false)
         {
@@ -71,7 +71,7 @@ namespace BoxBack.WebApi.EndPoints
             }
             catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
             
-            if (pessoasDB == null)
+            if (pessoasDB == null || pessoasDB.Count == 0)
             {
                 AddError("Não encontrado");
                 return CustomResponse(404);
