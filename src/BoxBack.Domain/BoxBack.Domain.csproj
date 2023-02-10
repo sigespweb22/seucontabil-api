@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BoxBack.Application\BoxBack.Application.csproj" />
   </ItemGroup>
 
 </Project>

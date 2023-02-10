@@ -10,8 +10,10 @@ using BoxBack.Infra.Data.Context;
 using BoxBack.Application.ViewModels;
 using BoxBack.Domain.Models;
 using AutoMapper;
-using BoxBack.Domain.InterfacesRepositories;
+using BoxBack.Domain.Interfaces;
 using BoxBack.WebApi.Controllers;
+using BoxBack.Application.Interfaces;
+using BoxBack.WebApi.Interfaces;
 
 namespace BoxBack.WebApi.EndPoints
 {
@@ -23,14 +25,17 @@ namespace BoxBack.WebApi.EndPoints
         private readonly BoxAppDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IDespesaAppService _despesaAppService;
 
         public DespesaEndpoint(BoxAppDbContext context,
                                IUnitOfWork unitOfWork,
-                               IMapper mapper)
+                               IMapper mapper,
+                               IDespesaAppService despesaAppService)
         {
             _context = context;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _despesaAppService = despesaAppService;
         }
 
         /// <summary>
@@ -237,23 +242,12 @@ namespace BoxBack.WebApi.EndPoints
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody]DespesaViewModel despesaViewModel)
         {
-            #region Map
-            var despesaMapped = new Despesa();
             try
             {
-                despesaMapped = _mapper.Map<Despesa>(despesaViewModel);
-            }
-            catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
-            #endregion
-
-            #region Persistance and commit
-            try
-            {
-                await _context.Despesas.AddAsync(despesaMapped);
+                await _despesaAppService.AddAsync(despesaViewModel);
                 _unitOfWork.Commit();
             }
             catch (Exception ex) { AddErrorToTryCatch(ex); return CustomResponse(500); }
-            #endregion
 
             return CustomResponse(201);
         }

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using System.Threading.Tasks;
 
-namespace BoxBack.Domain.InterfacesRepositories
+namespace BoxBack.Domain.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

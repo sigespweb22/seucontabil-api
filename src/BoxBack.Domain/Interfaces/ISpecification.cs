@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace BoxBack.Domain.InterfacesRepositories
+namespace BoxBack.Domain.Interfaces
 {
     public interface ISpecification<T>
     {

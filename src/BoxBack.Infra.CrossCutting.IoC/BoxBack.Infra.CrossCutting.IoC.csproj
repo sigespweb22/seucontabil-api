@@ -11,4 +11,8 @@
     <ProjectReference Include="..\BoxBack.Infra.CrossCutting.Identity\BoxBack.Infra.CrossCutting.Identity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BoxBack.Application\BoxBack.Application.csproj" />
+  </ItemGroup>
+
 </Project>

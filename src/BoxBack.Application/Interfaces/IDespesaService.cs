@@ -1,7 +1,7 @@
 
 namespace BoxBack.Application.Interfaces
 {
-    public interface IClienteAppService
+    public interface IDespesaService
     {
     }
 }

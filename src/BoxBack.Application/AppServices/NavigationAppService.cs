@@ -2,12 +2,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using BoxBack.Application.Interfaces;
 using BoxBack.Application.ViewModels.Navigation;
 
 namespace BoxBack.Application.AppServices
 {
-    public class NavigationAppService : INavigationAppService
+    public class NavigationAppService
     {
         public NavigationAppService() {  }
 

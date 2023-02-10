@@ -1,5 +1,5 @@
 using System;
-using BoxBack.Domain.Models;
+using BoxBack.Application.ViewModels.Selects;
 
 namespace BoxBack.Application.ViewModels
 {
@@ -8,9 +8,9 @@ namespace BoxBack.Application.ViewModels
         public Guid? Id { get; set; }
         public string FormaPagamento { get; set; }
         public string SistemaParcelamento { get; set; }
-        public string TotalParcelas { get; set; }
+        public Int64 TotalParcelas { get; set; }
         public string DataOperacao { get; set; }
-        public decimal ValorPrincipal { get; set; }
+        public decimal? ValorPrincipal { get; set; }
         public decimal? Iof { get; set; }
         public decimal? Seguro { get; set; }
         public decimal? Tarifa { get; set; }
@@ -21,6 +21,8 @@ namespace BoxBack.Application.ViewModels
         public decimal? ValorParcelado { get; set; }
         public string Status { get; set; }
         public Guid? ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
+        public ClienteSelect2ViewModel Cliente { get; set; }
+        public Guid? PessoaId { get; set; }
+        public PessoaSelect2ViewModel Pessoa { get; set; }
     }
 }

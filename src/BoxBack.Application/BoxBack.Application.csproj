@@ -9,7 +9,6 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoxBack.Domain\BoxBack.Domain.csproj" />
     <ProjectReference Include="..\BoxBack.Infra.Data\BoxBack.Infra.Data.csproj" />
   </ItemGroup>
 

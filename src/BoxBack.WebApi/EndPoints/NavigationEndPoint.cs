@@ -1,26 +1,12 @@
 using System;
-using System.Data;
-using System.Linq;
 using System.Security.Claims;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using AutoMapper;
-using BoxBack.Domain.Models;
-using BoxBack.Domain.InterfacesRepositories;
-using BoxBack.Infra.CrossCutting.Identity.Services;
-using BoxBack.WebApi.Security;
 using BoxBack.WebApi.Controllers;
-using BoxBack.Application.ViewModels;
-using BoxBack.Application.ViewModels.Requests;
-using BoxBack.Infra.Data.Context;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using BoxBack.Application.Interfaces;
 using BoxBack.Application.ViewModels.Navigation;
+using BoxBack.WebApi.Interfaces;
 
 namespace BoxBack.WebApi.EndPoints
 {

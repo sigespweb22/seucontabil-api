@@ -5,9 +5,8 @@ using BoxBack.Infra.Data.RepositoryNoSQL;
 using BoxBack.Application.Interfaces;
 using BoxBack.Infra.CrossCutting.Identity.Services;
 using BoxBack.Application.AppServices;
-using Sigesp.Domain.InterfacesRepositories;
+using Sigesp.Domain.Interfaces;
 using Sigesp.Infra.Data.Repository;
-using BoxBack.Domain.InterfacesRepositories;
 using BoxBack.Domain.Interfaces;
 using BoxBack.Domain.Services;
 
@@ -24,7 +23,8 @@ namespace BoxBack.Infra.CrossCutting.IoC
             services.AddScoped<IClienteService, ClienteService>();
 
             // Repositories
-            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IClie
+            nteRepository, ClienteRepository>();
 
             // Transient: Created each time.
             // Scoped: Created only once per request.

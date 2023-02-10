@@ -1,16 +1,15 @@
 using System.Threading.Tasks;
-using BoxBack.Domain.Interfaces;
 using BoxBack.Domain.Models;
-using Sigesp.Domain.InterfacesRepositories;
 using System.Collections.Generic;
 using BoxBack.Domain.ServicesThirdParty;
-using BoxBack.Domain.InterfacesRepositories;
+using BoxBack.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Sigesp.Domain.Interfaces;
 
 namespace BoxBack.Domain.Services
 {
-    public class ClienteService : IClienteService
+    public class ClienteService
     {
         private readonly ILogger _logger;
         private readonly IClienteRepository _clienteRepository;
