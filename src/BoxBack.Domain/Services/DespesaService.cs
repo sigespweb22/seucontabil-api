@@ -2,12 +2,12 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using BoxBack.Domain.Interfaces;
 using System.Threading.Tasks;
-using Sigesp.Domain.Interfaces;
-using Sigesp.Application.ViewModels;
+using BoxBack.Domain.InterfacesRepository;
+using BoxBack.Domain.Models;
 
 namespace BoxBack.Domain.Services
 {
-    public class DespesaService
+    public class DespesaService : IDespesaService
     {
         private readonly ILogger _logger;
         private readonly IDespesaRepository _despesaRepository;
@@ -25,7 +25,7 @@ namespace BoxBack.Domain.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> AddAsync(DespesaViewModel despesaViewModel)
+        public Task<bool> AddAsync(Despesa despesa)
         {
             #region Entity validations
             

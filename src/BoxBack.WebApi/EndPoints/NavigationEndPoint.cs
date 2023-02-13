@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BoxBack.WebApi.Controllers;
 using BoxBack.Application.ViewModels.Navigation;
-using BoxBack.WebApi.Interfaces;
+using BoxBack.Domain.InterfacesRepository;
+using BoxBack.Application.Interfaces;
 
 namespace BoxBack.WebApi.EndPoints
 {

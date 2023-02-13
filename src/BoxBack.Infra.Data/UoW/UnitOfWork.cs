@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using BoxBack.Domain.Interfaces;
+using BoxBack.Domain.InterfacesRepository;
 using BoxBack.Infra.Data.Context;
 
 namespace BoxBack.Infra.Data.UoW

@@ -5,11 +5,11 @@ using BoxBack.Domain.ServicesThirdParty;
 using BoxBack.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Sigesp.Domain.Interfaces;
+using BoxBack.Domain.InterfacesRepository;
 
 namespace BoxBack.Domain.Services
 {
-    public class ClienteService
+    public class ClienteService : IClienteService
     {
         private readonly ILogger _logger;
         private readonly IClienteRepository _clienteRepository;
@@ -30,7 +30,7 @@ namespace BoxBack.Domain.Services
             _unitOfWork = unitOfWork;
         }
     
-        public async Task<IEnumerable<Cliente>> GetAll()
+        public async Task<IEnumerable<Cliente>> GetAllAsync()
         {
             return await _clienteRepository.GetAllAsync();
         }

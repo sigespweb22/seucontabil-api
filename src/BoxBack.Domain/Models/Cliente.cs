@@ -1,12 +1,12 @@
-using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using BoxBack.Domain.Enums;
 using System.Collections.Generic;
+using NetDevPack.Domain;
 
 namespace BoxBack.Domain.Models
 {
-    public class Cliente : EntityAuditTenant
+    public class Cliente : EntityAuditTenant, IAggregateRoot
     {        
         public Cliente(string nomeFantasia, string razaoSocial, string inscricaoEstadual,
                        string cnpj, string telefonePrincipal, string emailPrincipal, string observacao,

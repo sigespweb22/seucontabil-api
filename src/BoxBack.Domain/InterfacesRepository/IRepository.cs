@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BoxBack.Domain.InterfacesRepository;
 
-namespace BoxBack.Domain.Interfaces
+namespace BoxBack.Domain.InterfacesRepository
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {

@@ -4,11 +4,11 @@ using BoxBack.Infra.Data.Context;
 
 namespace BoxBack.Infra.Data.Repository
 {
-    public class ClienteRepository : Repository<Cliente>, IClienteRepository
+    public class DespesaRepository : Repository<Despesa>, IDespesaRepository
     {
         private readonly BoxAppDbContext _context;
 
-        public ClienteRepository(BoxAppDbContext context) : base(context)
+        public DespesaRepository(BoxAppDbContext context) : base(context)
         {
             _context = context;
         }

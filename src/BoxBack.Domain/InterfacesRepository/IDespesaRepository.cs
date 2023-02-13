@@ -1,7 +1,6 @@
-using BoxBack.Domain.Interfaces;
 using BoxBack.Domain.Models;
 
-namespace Sigesp.Domain.Interfaces
+namespace BoxBack.Domain.InterfacesRepository
 {
     public interface IDespesaRepository : IRepository<Despesa>
     {

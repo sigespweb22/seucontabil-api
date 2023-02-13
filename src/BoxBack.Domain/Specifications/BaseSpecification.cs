@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using BoxBack.Domain.Interfaces;
+using BoxBack.Domain.InterfacesRepository;
 
 namespace BoxBack.Domain.Specifications
 {

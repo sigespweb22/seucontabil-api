@@ -10,10 +10,9 @@ using BoxBack.Infra.Data.Context;
 using BoxBack.Application.ViewModels;
 using BoxBack.Domain.Models;
 using AutoMapper;
-using BoxBack.Domain.Interfaces;
-using BoxBack.WebApi.Controllers;
 using BoxBack.Application.Interfaces;
-using BoxBack.WebApi.Interfaces;
+using BoxBack.WebApi.Controllers;
+using BoxBack.Domain.InterfacesRepository;
 
 namespace BoxBack.WebApi.EndPoints
 {

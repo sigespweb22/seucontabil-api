@@ -18,7 +18,8 @@ using BoxBack.Application.ViewModels.Selects;
 using BoxBack.Domain.Enums;
 using BoxBack.WebApi.Helpers;
 using BoxBack.Domain.ModelsServices;
-using BoxBack.WebApi.Interfaces;
+using BoxBack.Domain.InterfacesRepository;
+using BoxBack.Application.Interfaces;
 
 namespace BoxBack.WebApi.EndPoints
 {

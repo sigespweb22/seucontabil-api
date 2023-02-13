@@ -4,6 +4,7 @@ using BoxBack.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using BoxBack.Domain.InterfacesRepository;
 using BoxBack.Domain.Interfaces;
 
 namespace BoxBack.Infra.Data.Repository

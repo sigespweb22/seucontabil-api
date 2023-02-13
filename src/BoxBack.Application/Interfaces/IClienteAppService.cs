@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BoxBack.Application.ViewModels;
 
 namespace BoxBack.Application.Interfaces
 {
-    public interface IClienteService
+    public interface IClienteAppService : IDisposable
     {
-        Task<IEnumerable<ClienteViewModel>> GetAll();
+        Task<IEnumerable<ClienteViewModel>> GetAllAsync();
     }
 }
