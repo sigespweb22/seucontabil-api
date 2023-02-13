@@ -63,7 +63,27 @@ namespace BoxBack.Application.AutoMapper
                .ForMember(dst => dst.Estado, src => src.MapFrom(x => x.Endereco == null ? null : x.Endereco.Uf == null ? null : x.Endereco.Uf))
                .ForMember(dst => dst.Cep, src => src.MapFrom(x => x.Endereco == null ? null : x.Endereco.Cep == null ? null : x.Endereco.Cep))
                .ForMember(dst => dst.Cpf, src => src.MapFrom(x => x.PessoaJuridica == null ? x.PessoaFisica.Documento == null ? null : x.PessoaFisica.Documento : null));
-            CreateMap<DespesaViewModel, Despesa>();
+            CreateMap<DespesaViewModel, Despesa>()
+                .ForMember(dest => dest.SistemaParcelamento, opt => opt.MapFrom(src => 
+                                                                    string.IsNullOrEmpty(src.SistemaParcelamento) ? default(string) : src.SistemaParcelamento))
+                .ForMember(dest => dest.DataOperacao, opt => opt.Condition((src, dest, srcValue) => {
+                    var dateValue = (DateTimeOffset?)srcValue;
+                    return dateValue.HasValue;
+                }))
+                .ForMember(dest => dest.ValorPrincipal, opt => opt.MapFrom(src => src.ValorPrincipal.Equals(0) ? default(decimal?) : src.ValorPrincipal))
+                .ForMember(dest => dest.ValorPrincipal, opt => opt.MapFrom(src => src.ValorEntrada.Equals(0) ? default(decimal?) : src.ValorEntrada))
+                .ForMember(dest => dest.Iof, opt => opt.MapFrom(src => src.Iof.Equals(0) ? default(decimal?) : src.ValorEntrada))
+                .ForMember(dest => dest.Seguro, opt => opt.MapFrom(src => src.Seguro.Equals(0) ? default(decimal?) : src.Seguro))
+                .ForMember(dest => dest.Tarifa, opt => opt.MapFrom(src => src.
+                Tarifa.Equals(0) ? default(decimal?) : src.Tarifa))
+                .ForMember(dest => dest.CustoEfetivoTotalAno, opt => opt.MapFrom(src => src.CustoEfetivoTotalAno.Equals(0) ? default(decimal?) : src.CustoEfetivoTotalAno))
+                .ForMember(dest => dest.CustoEfetivoTotalMes, opt => opt.MapFrom(src => src.CustoEfetivoTotalMes.Equals(0) ? default(decimal?) : src.CustoEfetivoTotalMes))
+                .ForMember(dest => dest.CustoEfetivoTotalDia, opt => opt.MapFrom(src => src.CustoEfetivoTotalDia.Equals(0) ? default(decimal?) : src.CustoEfetivoTotalDia))
+                .ForMember(dest => dest.TotalParcelas, opt => opt.MapFrom(src => src.TotalParcelas.Equals(0) ? default(decimal?) : src.TotalParcelas))
+                .ForMember(dest => dest.ClienteId, opt => opt.MapFrom(src => src.Cliente.Id))
+                .ForMember(dest => dest.PessoaId, opt => opt.MapFrom(src => src.Pessoa.Id))
+                .ForMember(dest => dest.Cliente, opt => opt.Ignore())
+                .ForMember(dest => dest.Pessoa, opt => opt.Ignore());
         }
     }
 }

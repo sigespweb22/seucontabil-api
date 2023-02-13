@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using BoxBack.Application.Interfaces;
@@ -29,10 +30,10 @@ namespace BoxBack.Application.AppServices
             {
                 return await _despesaService.AddAsync(_mapper.Map<Despesa>(despesaViewModel));
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogInformation(ex.Message);
-                throw;
+                throw new Exception($"Erro ao tentar adicionar uma despesa: {ex.Message}", ex);
             }
         }
 
