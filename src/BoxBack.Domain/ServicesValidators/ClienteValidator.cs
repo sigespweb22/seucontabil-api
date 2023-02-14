@@ -1,12 +1,13 @@
 using BoxBack.Domain.Models;
 using FluentValidation;
 
-namespace BoxBack.Domain.Validators.VendedorComissaoValidator
+namespace BoxBack.Domain.ServicesValidators
 {
-    public class ClienteParamsValidator : AbstractValidator<Cliente>
+    public class ClienteValidator : AbstractValidator<Cliente>
     {
-        public ClienteParamsValidator()
+        public ClienteValidator()
         {
+            RuleFor(x => x).Empty().WithMessage("Nenhum cliente encontrado.");
             RuleFor(x => x.Id).NotNull().WithMessage("Id cliente requerido.");
             RuleFor(x => x.Id).NotEmpty().WithMessage("Id cliente requerido.");
         }

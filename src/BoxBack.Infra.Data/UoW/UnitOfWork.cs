@@ -53,9 +53,11 @@ namespace BoxBack.Infra.Data.UoW
                 return new ValidationResult("Error commitAsync.");
             }
         }
-        public async Task<int> CommitAsync()
+        public async Task<bool> CommitAsync()
         {
-            return await _context.SaveChangesAsync();
+            var commit = await _context.SaveChangesAsync(); 
+            if(commit.Equals(1)) return true;
+            return false;
         }
         public void CommitWithoutSoftDelete()
         {
