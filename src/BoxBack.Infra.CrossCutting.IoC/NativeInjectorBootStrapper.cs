@@ -28,11 +28,13 @@ namespace BoxBack.Infra.CrossCutting.IoC
             // Domain - Services
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IDespesaService, DespesaService>();
+            services.AddScoped<IDespesaParcelaService, DespesaParcelaService>();
 
             // Infra Data - Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IDespesaRepository, DespesaRepository>();
+            services.AddScoped<IDespesaParcelaRepository, DespesaParcelaRepository>();
 
             // Repo NoSQL
             services.AddTransient<IClienteRepositoryNoSQL, ClienteRepositoryNoSQL>();

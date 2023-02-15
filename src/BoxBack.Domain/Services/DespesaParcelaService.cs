@@ -10,35 +10,35 @@ using System;
 
 namespace BoxBack.Domain.Services
 {
-    public class DespesaService : IDespesaService
+    public class DespesaParcelaService : IDespesaParcelaService
     {
         private readonly ILogger _logger;
-        private readonly IDespesaRepository _despesaRepository;
+        private readonly IDespesaParcelaRepository _despesaParcelaRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         
-        public DespesaService(ILogger<ClienteService> logger,
-                              IDespesaRepository despesaRepository,
-                              IMapper mapper,
-                              IUnitOfWork unitOfWork)
+        public DespesaParcelaService(ILogger<ClienteService> logger,
+                                     IDespesaParcelaRepository despesaParcelaRepository,
+                                     IMapper mapper,
+                                     IUnitOfWork unitOfWork)
         {
             _logger = logger;
-            _despesaRepository = despesaRepository;
+            _despesaParcelaRepository = despesaParcelaRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> AddAsync(Despesa despesa)
+        public async Task<bool> AddAsync(DespesaParcela despesaParcela)
         {
             #region Entity validations
-            var despesaValidator = new DespesaValidator();
-            despesaValidator.ValidateAndThrow(despesa);
+            var despesaParcelaValidator = new DespesaParcelaValidator();
+            despesaParcelaValidator.ValidateAndThrow(despesaParcela);
             #endregion
 
             #region Persistance
             try
             {
-                await _despesaRepository.AddAsync(despesa);
+                await _despesaParcelaRepository.AddAsync(despesaParcela);
             }
             catch (Exception ex)
             {
@@ -46,17 +46,6 @@ namespace BoxBack.Domain.Services
                 throw new Exception($"Erro ao tentar adicionar uma despesa: {ex.Message}", ex);
             }
             #endregion
-
-            // Calcular valor da parcela e criar as parcelas
-            try
-            {
-                await CalcularValorParcela(despesa);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogInformation(ex.Message);
-                throw new Exception($"Erro ao tentar adicionar uma despesa: {ex.Message}", ex);
-            }
 
             #region Commit
             try
@@ -66,7 +55,7 @@ namespace BoxBack.Domain.Services
             catch (Exception ex)
             {
                 _logger.LogInformation(ex.Message);
-                throw new Exception($"Erro ao tentar adicionar uma despesa: {ex.Message}", ex);
+                throw new Exception($"Erro ao tentar adicionar uma parcela da despesa: {ex.Message}", ex);
             }
             #endregion
         }
@@ -79,7 +68,7 @@ namespace BoxBack.Domain.Services
     
         public void Dispose()
         {
-            _despesaRepository.Dispose();
+            _despesaParcelaRepository.Dispose();
         }
     }
 }
