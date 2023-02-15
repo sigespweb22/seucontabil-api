@@ -27,6 +27,7 @@ namespace BoxBack.Application.ViewModels
         public decimal? ValorParcelado { get; set; } = 0;
         public string Status { get; set; }
         public Guid? ClienteId { get; set; }
+        public string DataVencimentoPrimeiraParcela { get; set; }
         
         [Required(ErrorMessage = "Cliente requerido.")]
         public ClienteSelect2ViewModel Cliente { get; set; }

@@ -46,6 +46,7 @@ namespace BoxBack.Domain.Models
         public decimal CustoEfetivoTotalDia { get; set; }
         public decimal ValorEntrada { get; set; }
         public decimal ValorParcelado { get; set; }
+        public DateTimeOffset DataVencimentoPrimeiraParcela { get; set; }
 
         // Relationships
         public ICollection<DespesaParcela> DespesaParcelas { get; set; }
