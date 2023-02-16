@@ -11,6 +11,7 @@ using System;
 using BoxBack.Domain.Enums;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace BoxBack.Domain.Services
 {
@@ -93,9 +94,9 @@ namespace BoxBack.Domain.Services
 
             for (var i=1; i < despesa.TotalParcelas; i++)
             {
-                var vencimentoParcelaAtual = CalcularDataVencimentoParcela(parcelas[i - 1].DataVencimento);
+                var vencimentoParcelaAtual =  i.Equals(1) ? despesa.DataVencimentoPrimeiraParcela : CalcularDataVencimentoParcela(parcelas[i - 1].DataVencimento);
                 var diasEntreParcelas = CalcularDiasEntreParcelas(vencimentoParcelaAtual, i.Equals(1) ? despesa.DataOperacao : parcelas[i - 1].DataVencimento);
-                var saldoInicial = i.Equals(1) ? valorFinanciado : parcelas[1 - 1].SaldoFinal;
+                var saldoInicial = i.Equals(1) ? valorFinanciado : parcelas[i - 1].SaldoFinal;
                 var jurosParcela = CalcularJurosParcela(despesa.CustoEfetivoTotalDia, diasEntreParcelas, saldoInicial);
 
                 var despesaParcela = new DespesaParcela()
@@ -109,10 +110,26 @@ namespace BoxBack.Domain.Services
                 };
                 parcelas.Add(despesaParcela);
             }
+
+            var valorParcela = CalcularValorParcela(valorFinanciado, parcelas.Sum(x => x.Juros), despesa.TotalParcelas);
+            
+            // Atribuindo valor de Parcela
+            parcelas.Select(p => { p.ValorParcela = valorParcela; return p; }).ToList();
+
+            // Atribuindo valor de Saldo Final
+            parcelas.Select(p => { 
+                p.SaldoFinal = CalcularSaldoFinal(p.SaldoInicial, p.Juros, parcelas.FirstOrDefault().ValorParcela);
+                return p;
+            }).ToList();
+
+            // Atribuindo valor de Saldo Final
+            parcelas.Select(p => { 
+                p.Amortizacao = CalcularAmortizacao(p.Juros, parcelas.FirstOrDefault().ValorParcela);
+                return p;
+            }).ToList();
             
             return parcelas;
         }
-
         private DateTimeOffset CalcularDataVencimentoParcela (DateTimeOffset vencimentoAnterior)
         {
             var novoVencimento = vencimentoAnterior.AddDays(30);
@@ -141,6 +158,18 @@ namespace BoxBack.Domain.Services
             resultado *= (double)valorMonetario;
 
             return (decimal)resultado;
+        }
+        private decimal CalcularValorParcela (decimal valorFinanciado, decimal valorJuros, Int64 totalParcelas)
+        {
+            return (valorFinanciado + valorJuros) / totalParcelas;
+        }
+        private decimal CalcularSaldoFinal (decimal saldoInicial, decimal juros, decimal valorParcela)
+        {
+            return (saldoInicial + juros) - valorParcela;
+        }
+        private decimal CalcularAmortizacao (decimal juros, decimal valorParcela)
+        {
+            return juros - valorParcela;
         }
 
         public void Dispose()
