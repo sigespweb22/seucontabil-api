@@ -8,6 +8,7 @@ namespace BoxBack.Domain.Interfaces
 {
     public interface IDespesaParcelaService : IDisposable
     {
+        Task<bool> AddWhithoutCommitAsync(DespesaParcela despesaParcelas);
         Task<bool> AddRangeWhithoutCommitAsync(IEnumerable<DespesaParcela> despesaParcelas);
     }
 }

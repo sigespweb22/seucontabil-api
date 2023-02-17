@@ -19,11 +19,11 @@ namespace BoxBack.Infra.Data.Mappings
 
             builder.Property(c => c.SaldoInicial)
                 .HasDefaultValue(0)
-                .HasColumnType("decimal(12,9)");
+                .HasColumnType("decimal(12,2)");
             
             builder.Property(c => c.SaldoFinal)
                 .HasDefaultValue(0)
-                .HasColumnType("decimal(12,9)");
+                .HasColumnType("decimal(12,2)");
             
             builder.Property(c => c.Juros)
                 .HasDefaultValue(0)
@@ -35,7 +35,7 @@ namespace BoxBack.Infra.Data.Mappings
             
             builder.Property(c => c.ValorParcela)
                 .HasDefaultValue(0)
-                .HasColumnType("decimal(12,9)");
+                .HasColumnType("decimal(12,2)");
             
             builder.Property(c => c.TenantId)
                 .HasDefaultValue(new Guid("d8fe3845-3f2e-4b4e-aeb6-53222d60ff45"))

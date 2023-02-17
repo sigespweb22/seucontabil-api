@@ -50,10 +50,11 @@ namespace BoxBack.Domain.Services
             }
             #endregion
 
-            #region Persistance
+            #region Create despesa
             try
             {
                 await _despesaRepository.AddAsync(despesa);
+                await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
             {
@@ -65,7 +66,8 @@ namespace BoxBack.Domain.Services
             #region Create parcelas
             try
             {
-                await _despesaParcelaService.AddRangeWhithoutCommitAsync(await GerarParcelas(despesa));
+                // await _despesaParcelaService.AddRangeWhithoutCommitAsync(await GerarParcelas(despesa));
+                await GerarParcelas(despesa);
             }
             catch (Exception ex)
             {
@@ -77,7 +79,7 @@ namespace BoxBack.Domain.Services
             #region Commit
             try
             {
-                return await _unitOfWork.CommitAsync();
+                return true;
             }
             catch (Exception ex)
             {
@@ -90,23 +92,24 @@ namespace BoxBack.Domain.Services
         private async Task<IEnumerable<DespesaParcela>> GerarParcelas(Despesa despesa)
         {
             var parcelas = new List<DespesaParcela>();
-            var valorFinanciado = (despesa.ValorPrincipal - despesa.ValorEntrada) + despesa.Iof + despesa.Seguro + despesa.Tarifa;
+            var valorFinanciado = Math.Round((despesa.ValorPrincipal - despesa.ValorEntrada) + despesa.Iof + despesa.Seguro + despesa.Tarifa, 2);
 
-            for (var i=1; i < despesa.TotalParcelas; i++)
+            for (var i=0; i < despesa.TotalParcelas; i++)
             {
-                var vencimentoParcelaAtual =  i.Equals(1) ? despesa.DataVencimentoPrimeiraParcela : CalcularDataVencimentoParcela(parcelas[i - 1].DataVencimento);
-                var diasEntreParcelas = CalcularDiasEntreParcelas(vencimentoParcelaAtual, i.Equals(1) ? despesa.DataOperacao : parcelas[i - 1].DataVencimento);
-                var saldoInicial = i.Equals(1) ? valorFinanciado : parcelas[i - 1].SaldoFinal;
+                var vencimentoParcelaAtual =  i.Equals(0) ? despesa.DataVencimentoPrimeiraParcela : CalcularDataVencimentoParcela(parcelas[i - 1].DataVencimento);
+                var diasEntreParcelas = CalcularDiasEntreParcelas(vencimentoParcelaAtual, i.Equals(0) ? despesa.DataOperacao : parcelas[i - 1].DataVencimento);
+                var saldoInicial = i.Equals(0) ? valorFinanciado : parcelas[i - 1].SaldoFinal;
                 var jurosParcela = CalcularJurosParcela(despesa.CustoEfetivoTotalDia, diasEntreParcelas, saldoInicial);
 
                 var despesaParcela = new DespesaParcela()
                 {
                     Id = Guid.NewGuid(),
-                    DataVencimento = i.Equals(1) ? despesa.DataVencimentoPrimeiraParcela : vencimentoParcelaAtual,
+                    DataVencimento = vencimentoParcelaAtual,
                     ParcelaNumero = i,
                     DiasEntreParcelas = diasEntreParcelas,
                     SaldoInicial = saldoInicial,
-                    Juros = jurosParcela
+                    Juros = jurosParcela,
+                    DespesaId = despesa.Id
                 };
                 parcelas.Add(despesaParcela);
             }
@@ -127,12 +130,26 @@ namespace BoxBack.Domain.Services
                 p.Amortizacao = CalcularAmortizacao(p.Juros, parcelas.FirstOrDefault().ValorParcela);
                 return p;
             }).ToList();
-            
+
+            for (var i = 0; i < parcelas.Count(); i++)
+            {
+                try
+                {
+                    await _despesaParcelaService.AddWhithoutCommitAsync(parcelas[i]);
+                    await _unitOfWork.CommitAsync();    
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogInformation(ex.Message);
+                    throw new Exception($"Erro ao tentar adicionar uma despesa: {ex.Message}", ex);
+                }
+            }
+
             return parcelas;
         }
         private DateTimeOffset CalcularDataVencimentoParcela (DateTimeOffset vencimentoAnterior)
         {
-            var novoVencimento = vencimentoAnterior.AddDays(30);
+            var novoVencimento = new DateTimeOffset(vencimentoAnterior.Year, vencimentoAnterior.AddMonths(1).Month, vencimentoAnterior.Day, 0, 0, 0, new TimeSpan(-3, 0, 0));
 
             // ** Validate
             string nomeDoDiaDaSemana = novoVencimento.ToString("dddd", new CultureInfo("pt-BR"));
@@ -157,19 +174,19 @@ namespace BoxBack.Domain.Services
             double resultado = Math.Pow(taxaDiaria, totalDias) - 1;
             resultado *= (double)valorMonetario;
 
-            return (decimal)resultado;
+            return Math.Round((decimal)resultado, 2);
         }
         private decimal CalcularValorParcela (decimal valorFinanciado, decimal valorJuros, Int64 totalParcelas)
         {
-            return (valorFinanciado + valorJuros) / totalParcelas;
+            return Math.Round((valorFinanciado + valorJuros) / totalParcelas, 2);
         }
         private decimal CalcularSaldoFinal (decimal saldoInicial, decimal juros, decimal valorParcela)
         {
-            return (saldoInicial + juros) - valorParcela;
+            return Math.Round((saldoInicial + juros) - valorParcela, 2);
         }
         private decimal CalcularAmortizacao (decimal juros, decimal valorParcela)
         {
-            return juros - valorParcela;
+            return Math.Round(juros - valorParcela, 2);
         }
 
         public void Dispose()

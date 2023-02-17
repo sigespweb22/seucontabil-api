@@ -30,6 +30,28 @@ namespace BoxBack.Domain.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<bool> AddWhithoutCommitAsync(DespesaParcela despesaParcela)
+        {
+            #region Entity validations
+            var despesaParcelaValidator = new DespesaParcelaValidator();
+            despesaParcelaValidator.ValidateAndThrow(despesaParcela);
+            #endregion
+
+            #region Persistance
+            try
+            {
+                await _despesaParcelaRepository.AddAsync(despesaParcela);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(ex.Message);
+                throw new Exception($"Erro ao tentar adicionar uma despesa: {ex.Message}", ex);
+            }
+            #endregion
+
+            return true;
+        }
+
         public async Task<bool> AddRangeWhithoutCommitAsync(IEnumerable<DespesaParcela> despesaParcelas)
         {
             #region Entity validations
@@ -52,17 +74,7 @@ namespace BoxBack.Domain.Services
             }
             #endregion
 
-            #region Commit
-            try
-            {
-                return await _unitOfWork.CommitAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogInformation(ex.Message);
-                throw new Exception($"Erro ao tentar adicionar uma parcela da despesa: {ex.Message}", ex);
-            }
-            #endregion
+            return true;
         }
 
         public void Dispose()
