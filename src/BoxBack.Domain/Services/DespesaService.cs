@@ -96,7 +96,7 @@ namespace BoxBack.Domain.Services
 
             for (var i=0; i < despesa.TotalParcelas; i++)
             {
-                var vencimentoParcelaAtual =  i.Equals(0) ? despesa.DataVencimentoPrimeiraParcela : CalcularDataVencimentoParcela(parcelas[i - 1].DataVencimento);
+                var vencimentoParcelaAtual =  i.Equals(0) ? despesa.DataVencimentoPrimeiraParcela : CalcularDataVencimentoParcela(despesa.DataVencimentoPrimeiraParcela.Day, parcelas[i - 1].DataVencimento);
                 var diasEntreParcelas = CalcularDiasEntreParcelas(vencimentoParcelaAtual, i.Equals(0) ? despesa.DataOperacao : parcelas[i - 1].DataVencimento);
                 var saldoInicial = i.Equals(0) ? valorFinanciado : parcelas[i - 1].SaldoFinal;
                 var jurosParcela = CalcularJurosParcela(despesa.CustoEfetivoTotalDia, diasEntreParcelas, saldoInicial);
@@ -147,9 +147,19 @@ namespace BoxBack.Domain.Services
 
             return parcelas;
         }
-        private DateTimeOffset CalcularDataVencimentoParcela (DateTimeOffset vencimentoAnterior)
+        private DateTimeOffset CalcularDataVencimentoParcela (int diaFixo, DateTimeOffset vencimentoAnterior)
         {
-            var novoVencimento = new DateTimeOffset(vencimentoAnterior.Year, vencimentoAnterior.AddMonths(1).Month, vencimentoAnterior.Day, 0, 0, 0, new TimeSpan(-3, 0, 0));
+            // Adiciona o número de meses desejado
+            var novaData = vencimentoAnterior.AddMonths(1);
+
+            // Verifica se a data resultante é válida
+            if (novaData.Year != vencimentoAnterior.Year || novaData.Month != (vencimentoAnterior.Month + 1) % 12)
+            {
+                // Ajusta para o último dia do mês anterior
+                novaData = new DateTimeOffset(novaData.Year, novaData.Month, 1, 0, 0, 0, vencimentoAnterior.Offset).AddMonths(1).AddDays(-1);
+            }
+            
+            var novoVencimento = new DateTimeOffset(novaData.Year, novaData.Month, diaFixo, 0, 0, 0, new TimeSpan(-3, 0, 0));
 
             // ** Validate
             string nomeDoDiaDaSemana = novoVencimento.ToString("dddd", new CultureInfo("pt-BR"));
