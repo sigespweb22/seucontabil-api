@@ -84,6 +84,7 @@ namespace BoxBack.Application.AutoMapper
                 .ForMember(dest => dest.PessoaId, opt => opt.MapFrom(src => src.Pessoa.Id))
                 .ForMember(dest => dest.Cliente, opt => opt.Ignore())
                 .ForMember(dest => dest.Pessoa, opt => opt.Ignore());
+            CreateMap<DespesaParcelaViewModel, DespesaParcela>();
         }
     }
 }

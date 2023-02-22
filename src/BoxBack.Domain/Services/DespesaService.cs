@@ -105,7 +105,7 @@ namespace BoxBack.Domain.Services
                 {
                     Id = Guid.NewGuid(),
                     DataVencimento = vencimentoParcelaAtual,
-                    ParcelaNumero = i,
+                    ParcelaNumero = i.Equals(0) ? 1 : i.Equals(1) ? 2 : (i + 1),
                     DiasEntreParcelas = diasEntreParcelas,
                     SaldoInicial = saldoInicial,
                     Juros = jurosParcela,

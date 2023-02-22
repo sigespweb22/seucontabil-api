@@ -12,5 +12,6 @@ namespace BoxBack.Application.ViewModels
         public decimal? Juros { get; set; }
         public decimal? Amortizacao { get; set; }
         public decimal ValorParcela { get; set; }
+        public string Status { get; set; }
     }
 }

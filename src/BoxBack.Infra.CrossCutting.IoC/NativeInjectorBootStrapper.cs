@@ -23,6 +23,7 @@ namespace BoxBack.Infra.CrossCutting.IoC
             // Application - AppServices
             services.AddScoped<IClienteAppService, ClienteAppService>();
             services.AddScoped<IDespesaAppService, DespesaAppService>();
+            services.AddScoped<IDespesaParcelaAppService, DespesaParcelaAppService>();
             services.AddScoped<INavigationAppService, NavigationAppService>();
 
             // Domain - Services

@@ -130,7 +130,22 @@ namespace BoxBack.Domain.Enums
         [Description("Pode atualizar os dados de uma pessoa")]
         CanPessoaUpdate = 704,
         [Description("Pode deletar uma pessoa")]
-        CanPessoaDelete = 705
+        CanPessoaDelete = 705,
+        #endregion
+
+        #region Despesa parcela
+        [Description("Pode realizar todas as ações/operações em todas as despesas parcelas")]
+        CanDespesaParcelaAll = 800,
+        [Description("Pode listar os dados de todas as despesas")]
+        CanDespesaParcelaList = 801,
+        [Description("Pode listar os dados de uma despesa")]
+        CanDespesaParcelaRead = 802,
+        [Description("Pode criar uma despesa")]
+        CanDespesaParcelaCreate = 803,
+        [Description("Pode atualizar os dados de uma despesa")]
+        CanDespesaParcelaUpdate = 804,
+        [Description("Pode deletar uma despesa")]
+        CanDespesaParcelaDelete = 805
         #endregion
     }
 }
